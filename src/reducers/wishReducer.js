@@ -1,4 +1,5 @@
 const wishReducer = (state, { type, payload }) => {
+  console.log({ payload });
   const removeWishItem = () => {
     payload.setToast({
       display: true,

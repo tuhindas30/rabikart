@@ -8,14 +8,13 @@ import ProductListing from "./components/ProductListing/ProductListing";
 import WishList from "./components/WishList/WishList";
 import Home from "./components/Home";
 import Product from "./components/Product";
-// import ImageSlider from "./components/ImageSlider";
 
 export default function App() {
   const { toast } = useToast();
   return (
     <div className="App">
       <NavBar />
-      {/* <ImageSlider /> */}
+      {/* <Toast /> */}
       {toast.display && <Toast />}
       <Routes>
         <Route path="/" element={<Home />} />

@@ -22,10 +22,11 @@ export default function setupMockServer() {
         server.create("product", {
           id: faker.datatype.uuid(),
           name: faker.commerce.productName(),
+          brand: faker.commerce.productAdjective(),
+          productDescription: faker.commerce.productDescription(),
+          color: faker.commerce.color(),
           image: faker.random.image(),
           price: Number(faker.commerce.price()),
-          material: faker.commerce.productMaterial(),
-          brand: faker.lorem.word(),
           inStock: faker.datatype.boolean(),
           fastDelivery: faker.datatype.boolean(),
           ratings: faker.random.arrayElement([1, 2, 3, 4, 5]),
@@ -48,7 +49,6 @@ export default function setupMockServer() {
             "advanced",
             "professional",
           ]),
-          color: faker.commerce.color(),
         });
       });
     },

@@ -49,7 +49,12 @@ const ProductCard = ({
           <i className="bi bi-heart"></i>
         )}
       </div>
-      <Link key={id} to={`/product/${id}`}>
+      {!inStock && (
+        <div className="overlay">
+          <div>OUT OF STOCK</div>
+        </div>
+      )}
+      <Link key={id} to={`/product/${id}`} className="product">
         <div className="product-card-content-container">
           <div className="product-card-img-container ">
             <img src={image} alt="" />
@@ -78,7 +83,6 @@ const ProductCard = ({
                 <span>{ratings}</span> <i className="bi bi-star-fill"></i>
               </div>
             )}
-            {inStock ? <p> In Stock </p> : <p> Out of Stock </p>}
             {fastDelivery ? <p> Fast Delivery </p> : <p> 3 days minimum </p>}
           </div>
         </div>

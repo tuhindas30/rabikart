@@ -11,7 +11,8 @@ import getSearchData from "../getSearchData";
 import SearchBar from "../SearchBar";
 
 const ProductListing = () => {
-  const { productsData } = useProducts();
+  const productsData = data();
+  console.log({ productsData });
   const { cartState, cartDispatch } = useCart();
   const { wishState, wishDispatch } = useWish();
   const {

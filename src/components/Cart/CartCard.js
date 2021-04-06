@@ -1,4 +1,5 @@
 import { useCart } from "../../contexts/cart-context";
+import { useToast } from "../../contexts/toast-context";
 
 const CartCard = ({
   item: {
@@ -16,6 +17,7 @@ const CartCard = ({
   },
 }) => {
   const { cartDispatch } = useCart();
+  const { setToast } = useToast();
   return (
     <div className="card cart-card">
       <div className="cart-card-content-container">
@@ -69,7 +71,12 @@ const CartCard = ({
         </div>
       </div>
       <button
-        onClick={() => cartDispatch({ type: "REMOVE_ITEM", payload: { id } })}
+        onClick={() =>
+          cartDispatch({
+            type: "REMOVE_ITEM",
+            payload: { itemDetails: { id }, setToast },
+          })
+        }
         className="btn icon"
       >
         <i className="bi bi-trash-fill"></i>

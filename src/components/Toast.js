@@ -5,7 +5,7 @@ const Toast = () => {
     toast: { addedOrRemoved, fromComponent },
   } = useToast();
   return (
-    <div id="toast-contents" className="toast">
+    <div className="toast">
       <p>
         Product is {addedOrRemoved} My {fromComponent}
       </p>
