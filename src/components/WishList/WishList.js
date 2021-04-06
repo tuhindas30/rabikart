@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useWish } from "../contexts/wishlist-context";
+import { useWish } from "../../contexts/wishlist-context";
 import WishCard from "./WishCard";
 
 const WishList = () => {

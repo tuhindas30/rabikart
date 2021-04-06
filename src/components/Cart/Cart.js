@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useCart } from "../contexts/cart-context";
+import { useCart } from "../../contexts/cart-context";
 import CartCard from "./CartCard";
 
 const Cart = () => {
@@ -39,7 +39,7 @@ const Cart = () => {
           </p>
           <p>Add items to it now</p>
           <button className="btn primary">
-            <Link to="/product" className="nav-links">
+            <Link to="/product-listing" className="nav-links">
               Shop now
             </Link>
           </button>

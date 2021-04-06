@@ -1,4 +1,4 @@
-import { useToast } from "../contexts/toast-context";
+import { useToast } from "../../contexts/toast-context";
 const WishCard = ({
   item: {
     id,
@@ -54,18 +54,6 @@ const WishCard = ({
         )}
         {inStock ? <p> In Stock </p> : <p> Out of Stock </p>}
         {fastDelivery ? <p> Fast Delivery </p> : <p> 3 days minimum </p>}
-        {/* <button
-          onClick={() =>
-            wishDispatch({
-              type: "REMOVE_WISH",
-              payload: { wishItemDetails: { id }, setToast },
-            })
-          }
-          className="btn icon"
-        >
-          <i className="bi bi-trash-fill"></i>
-          <span style={{ padding: "0.5rem" }}>Remove</span>
-        </button> */}
       </div>
     </div>
   );

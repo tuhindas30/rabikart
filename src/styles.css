@@ -138,6 +138,13 @@
   top: 1rem;
   right: 1rem;
   cursor: pointer;
+  padding: 0.3rem 0.4rem;
+  border-radius: 50%;
+  background-color: var(--rb-very-light-grey);
+}
+
+.wish-icon {
+  color: var(--rb-grey);
 }
 
 .empty-wish-container,
@@ -205,6 +212,79 @@
   /* font-size: 1.2rem; */
 }
 
-.toast {
+.product-image {
+  margin-top: 4rem;
+  position: relative;
+}
+
+.product-details {
+  padding: 1rem;
+}
+
+.product-page-footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.product-page-footer button {
+  width: 50%;
+  margin: 0;
+  border-radius: 0;
+}
+
+.slider {
+  width: 800px;
+  height: 500px;
+  border-radius: 10px;
+  /* display: flex;
+  overflow: auto; */
+  border: 1px solid black;
+}
+
+.slides {
+  width: 500%;
+  height: 500px;
+  display: flex;
+}
+
+.slides input {
+  display: none;
+}
+.slide {
+  width: 20%;
+  transition: 2s;
+}
+.slide img {
+  width: 800px;
+  height: 500px;
+}
+
+.navigation-manual {
+  position: absolute;
+  width: 800px;
+  margin-top: -40px;
+  display: flex;
+  justify-content: center;
+}
+
+.manual-btn {
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 1s;
+}
+
+.manual-btn:last-child {
+  margin-right: 40px;
+}
+
+.manual-btn:hover {
+  background: blue;
+}
+
+#radio1:checked ~ .toast {
   display: block;
 }

@@ -7,7 +7,7 @@ const Toast = () => {
   return (
     <div id="toast-contents" className="toast">
       <p>
-        Product is {addedOrRemoved} to My {fromComponent}
+        Product is {addedOrRemoved} My {fromComponent}
       </p>
     </div>
   );

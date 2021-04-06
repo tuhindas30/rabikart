@@ -1,17 +1,17 @@
 import { useState } from "react";
-import { useCart } from "../contexts/cart-context";
-import data from "../Data";
-import { useWish } from "../contexts/wishlist-context";
-import { useProducts } from "../contexts/products-context";
-import { useToast } from "../contexts/toast-context";
+import { useCart } from "../../contexts/cart-context";
+import data from "../../Data";
+import { useWish } from "../../contexts/wishlist-context";
+import { useProducts } from "../../contexts/products-context";
+import { useToast } from "../../contexts/toast-context";
 import ProductCard from "./ProductCard";
-import getSortedData from "./getSortedData";
-import getFilteredData from "./getFilteredData";
-import getSearchData from "./getSearchData";
-import SearchBar from "./SearchBar";
+import getSortedData from "../getSortedData";
+import getFilteredData from "../getFilteredData";
+import getSearchData from "../getSearchData";
+import SearchBar from "../SearchBar";
 
 const ProductListing = () => {
-  const productsData = data();
+  const { productsData } = useProducts();
   const { cartState, cartDispatch } = useCart();
   const { wishState, wishDispatch } = useWish();
   const {
@@ -77,6 +77,7 @@ const ProductListing = () => {
       </fieldset>
       {searchData.map((itemDetails) => (
         <ProductCard
+          key={itemDetails.id}
           itemDetails={itemDetails}
           wishState={wishState}
           wishDispatch={wishDispatch}
