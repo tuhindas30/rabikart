@@ -1,0 +1,21 @@
+.banner {
+  margin-top: 4rem;
+  width: 100%;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 1rem;
+  grid-row-gap: 1rem;
+  padding: 1rem;
+}
+
+.category {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background-color: var(--rb-light-grey);
+  border-radius: 0.5rem;
+}
