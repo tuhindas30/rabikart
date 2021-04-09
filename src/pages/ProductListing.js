@@ -1,18 +1,28 @@
 import { useState } from "react";
-import { useCart } from "../../contexts/cart-context";
-import data from "../../Data";
-import { useWish } from "../../contexts/wishlist-context";
-import { useProducts } from "../../contexts/products-context";
-import { useToast } from "../../contexts/toast-context";
-import ProductCard from "./ProductCard";
-import getSortedData from "../getSortedData";
-import getFilteredData from "../getFilteredData";
-import getSearchData from "../getSearchData";
-import SearchBar from "../SearchBar";
+import "../assets/css/ProductListing.css";
+import { useCart } from "../contexts/cart-context";
+import { useWish } from "../contexts/wishlist-context";
+import { useProducts } from "../contexts/products-context";
+import { useToast } from "../contexts/toast-context";
+import ProductCard from "../components/ProductCard";
+import getSortedData from "../components/getSortedData";
+import getFilteredData from "../components/getFilteredData";
+import getSearchData from "../components/getSearchData";
+import SearchBar from "../components/SearchBar";
 
-const ProductListing = () => {
-  const productsData = data();
-  console.log({ productsData });
+const ProductListing = ({ category = "none" }) => {
+  const { productsData } = useProducts();
+
+  const getFilteredCategory = () => {
+    if (category === "none") return productsData;
+    return productsData.filter(
+      (product) => product.idealFor === category || product.level === category
+    );
+  };
+
+  // const filterCategory = productsData.filter((product) =>
+  //   product.idealFor === category ? product : true
+  // );
   const { cartState, cartDispatch } = useCart();
   const { wishState, wishDispatch } = useWish();
   const {
@@ -20,7 +30,7 @@ const ProductListing = () => {
     productDispatch,
   } = useProducts();
   const { setToast } = useToast();
-  const sortedData = getSortedData(productsData, sortBy);
+  const sortedData = getSortedData(getFilteredCategory(), sortBy);
   const filteredData = getFilteredData(
     sortedData,
     showOutOfStock,

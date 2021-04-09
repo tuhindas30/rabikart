@@ -1,3 +1,4 @@
+import "../assets/css/NavBar.css";
 import { Link } from "react-router-dom";
 import { useCart } from "../contexts/cart-context";
 import { useWish } from "../contexts/wishlist-context";

@@ -1,5 +1,5 @@
-import { useCart } from "../../contexts/cart-context";
-import { useToast } from "../../contexts/toast-context";
+import { useCart } from "../contexts/cart-context";
+import { useToast } from "../contexts/toast-context";
 
 const CartCard = ({
   item: {

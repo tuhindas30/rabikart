@@ -1,4 +1,4 @@
-import { useToast } from "../../contexts/toast-context";
+import { useToast } from "../contexts/toast-context";
 const WishCard = ({
   item: {
     id,

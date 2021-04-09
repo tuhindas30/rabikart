@@ -1,3 +1,4 @@
+import "../assets/css/SearchBar.css";
 const SearchBar = ({ setSearchInput }) => {
   return (
     <div className="search-mobile">

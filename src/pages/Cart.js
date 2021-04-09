@@ -1,7 +1,8 @@
 import { useEffect } from "react";
+import "../assets/css/Cart.css";
 import { Link } from "react-router-dom";
-import { useCart } from "../../contexts/cart-context";
-import CartCard from "./CartCard";
+import { useCart } from "../contexts/cart-context";
+import CartCard from "../components/CartCard";
 
 const Cart = () => {
   const { cartState } = useCart();
