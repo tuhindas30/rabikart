@@ -17,5 +17,7 @@
   align-items: center;
   padding: 2rem;
   background-color: var(--rb-light-grey);
+  color: var(--rb-light-black);
   border-radius: 0.5rem;
+  box-shadow: 0rem 0.1rem 0.2rem 0.1rem var(--rb-light-black-shadow);
 }

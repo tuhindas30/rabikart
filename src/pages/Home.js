@@ -9,34 +9,34 @@ const Home = () => {
         <img className="image" src="images/banner.jpg" alt="Your wish" />
       </header>
       <div className="category-grid">
-        <Link to="/product-listing/men">
+        <Link to="/product-listing/men" className="link">
           <div className="category">Men</div>
         </Link>
-        <Link to="/product-listing/women">
+        <Link to="/product-listing/women" className="link">
           <div className="category">Women</div>
         </Link>
-        <Link to="/product-listing/boys">
+        <Link to="/product-listing/boys" className="link">
           <div className="category">Boys</div>
         </Link>
-        <Link to="/product-listing/girls">
+        <Link to="/product-listing/girls" className="link">
           <div className="category">Girls</div>
         </Link>
-        <Link to="/product-listing/senior">
+        <Link to="/product-listing/senior" className="link">
           <div className="category">Senior</div>
         </Link>
-        <Link to="/product-listing/beginner">
+        <Link to="/product-listing/beginner" className="link">
           <div className="category">Beginner</div>
         </Link>
-        <Link to="/product-listing/amateur">
+        <Link to="/product-listing/amateur" className="link">
           <div className="category">Amateur</div>
         </Link>
-        <Link to="/product-listing/intermediate">
+        <Link to="/product-listing/intermediate" className="link">
           <div className="category">Intermediate</div>
         </Link>
-        <Link to="/product-listing/advanced">
+        <Link to="/product-listing/advanced" className="link">
           <div className="category">Advanced</div>
         </Link>
-        <Link to="/product-listing/professional">
+        <Link to="/product-listing/professional" className="link">
           <div className="category">Professional</div>
         </Link>
       </div>
