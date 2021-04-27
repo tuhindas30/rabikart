@@ -1,0 +1,23 @@
+.banner {
+	margin-top: 4rem;
+	width: 100%;
+}
+
+.category-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-column-gap: 1rem;
+	grid-row-gap: 1rem;
+	padding: 1rem;
+}
+
+.category {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 2rem;
+	/* background-color: var(--rb-light-grey); */
+	color: var(--rb-light-black);
+	border-radius: 0.5rem;
+	box-shadow: 0rem 0.1rem 0.2rem 0.1rem var(--rb-light-black-shadow);
+}
