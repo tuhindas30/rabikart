@@ -1,0 +1,26 @@
+.remove-wish-btn {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--rb-very-light-grey);
+}
+
+.wish-card {
+  flex-basis: 50%;
+  background-color: var(--rb-very-light-grey);
+  border: 1px solid var(--rb-grey);
+}
+
+.wish-card .image {
+  height: 15rem;
+  padding: 1rem 0;
+  object-fit: contain;
+}
+
+@media screen and (min-width: 768px) {
+  .wish-card {
+    flex-basis: 25%;
+  }
+}

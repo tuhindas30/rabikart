@@ -1,35 +1,19 @@
-.empty-wish-image-container,
 .empty-cart-image-container {
   width: 40%;
-  /* border: 1px solid black; */
-}
-
-.cart-container,
-.wish-container {
-  margin-top: 4rem;
 }
 
 .cart-container {
+  height: 80vh;
+  margin-top: 4rem;
   margin-bottom: 4rem;
 }
 
-.cart-card-left {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex-basis: 40%;
-  /* border: 1px solid black; */
-}
-
-.cart-card-content {
-  flex-basis: 60%;
-}
-
-.qty-changer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* border: 1px solid black; */
+.cart-header {
+  padding: 1rem;
+  font-size: 1.1rem;
+  text-align: center;
+  background-color: var(--rb-very-light-grey);
+  border-bottom: 2px solid var(--rb-grey);
 }
 
 .cart-footer {
@@ -43,5 +27,82 @@
   align-items: center;
   padding: 0.1rem 1rem;
   background-color: var(--rb-very-light-grey);
-  /* border: 1px solid black; */
+}
+
+.empty-cart-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 60vh;
+}
+
+.price-details {
+  display: none;
+}
+
+.place-order-btn {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .empty-cart-container {
+    height: 80vh;
+  }
+
+  .empty-cart-image-container {
+    width: 25%;
+  }
+
+  .cart-item--container {
+    display: grid;
+    grid-template-columns: 1fr 0.5fr;
+    padding: 1rem 2rem;
+  }
+
+  .cart-item {
+    padding: 0 1rem;
+  }
+
+  .place-order-btn {
+    display: block;
+    padding: 0 1rem;
+    text-align: right;
+  }
+
+  .place-order-btn button {
+    width: 30%;
+    font-size: 1.5rem;
+  }
+
+  .price-details {
+    display: block;
+    padding: 0 1rem;
+    height: fit-content;
+    background-color: var(--rb-very-light-grey);
+  }
+
+  .price-details-header {
+    padding: 1rem 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-bottom: 1px solid var(--rb-grey);
+  }
+
+  .details {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--rb-grey);
+  }
+
+  .total-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  .cart-footer {
+    display: none;
+  }
 }
