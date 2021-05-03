@@ -18,8 +18,6 @@ const wishReducer = (state, { type, payload }) => {
 		case "SET_WISH_DATA":
 			return [...payload.wishlist];
 		case "ADD_WISH":
-			// if (state.some((item) => item.id === payload.wishItemDetails.id))
-			//   return removeWishItem();
 			payload.setToast({
 				display: true,
 				addedOrRemoved: "added to",
@@ -32,8 +30,7 @@ const wishReducer = (state, { type, payload }) => {
 					fromComponent: "Wishlist",
 				});
 			}, 2000);
-			return [{ ...payload.item }];
-		// return [...state, { ...payload.wishItemDetails }];
+			return [...state, { ...payload.item }];
 		case "REMOVE_WISH":
 			return removeWishItem();
 		default:

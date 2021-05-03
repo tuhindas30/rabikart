@@ -1,9 +1,11 @@
 import "../assets/css/error404.css";
 import { Link } from "react-router-dom";
+import { ReactComponent as Error404Svg } from "../assets/images/error404.svg";
+
 const Error404 = () => {
   return (
     <div className="error-msg-container">
-      <img className="image" src="images/error404.svg" alt="error 404" />
+      <Error404Svg width="100%" />
       <div className="error-msg">
         <div className="error-msg-bold">YOU SEEM LOST</div>
         <div className="error-msg-take-home">

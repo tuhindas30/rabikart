@@ -1,5 +1,8 @@
 import axios from "axios";
 import { useToast } from "../contexts/toast-context";
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import "../assets/css/WishCard.css";
+
 const WishCard = ({ item: { _id, product }, wishDispatch }) => {
 	const { setToast } = useToast();
 
@@ -19,27 +22,14 @@ const WishCard = ({ item: { _id, product }, wishDispatch }) => {
 	return (
 		<div className="card wish-card">
 			<div onClick={() => handleRemoveWish(_id)} className="remove-wish-btn">
-				<i style={{ color: "black" }} className="bi bi-x-circle-fill"></i>
+				<AiOutlineCloseCircle color="var(--rb-dark-grey)" />
 			</div>
-			<img src={product.imageUrl} alt="" />
+			<img className="image" src={product.imageUrl} alt="product" />
 			<div className="card-content">
-				<p>{product.modelName}</p>
+				<p style={{ color: "var(--rb-dark-grey)", fontSize: ".8rem" }}>
+					{product.modelName}
+				</p>
 				<p>₹{product.discountedPrice}</p>
-				{product.avgRating >= 4 && (
-					<div className="star-num rating-h wish-rating-star-num">
-						<span>{product.avgRating}</span> <i className="bi bi-star-fill"></i>
-					</div>
-				)}
-				{product.avgRating >= 2 && product.avgRating < 4 && (
-					<div className="star-num rating-m wish-rating-star-num">
-						<span>{product.avgRating}</span> <i className="bi bi-star-fill"></i>
-					</div>
-				)}
-				{product.avgRating >= 0 && product.avgRating < 2 && (
-					<div className="star-num rating-l wish-rating-star-num">
-						<span>{product.avgRating}</span> <i className="bi bi-star-fill"></i>
-					</div>
-				)}
 			</div>
 		</div>
 	);
