@@ -11,9 +11,9 @@ body {
   background-color: var(--rb-light-grey);
 }
 
-.toast {
+/* .toast {
   display: block;
-}
+} */
 
 .link {
   text-decoration: none;
@@ -23,4 +23,8 @@ body {
 .flex-icon {
   display: flex;
   align-items: center;
+}
+
+.Toastify__toast-body {
+  text-align: center;
 }

@@ -1,4 +1,11 @@
-import { createContext, useContext, useReducer, useState } from "react";
+import axios from "axios";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
 import productReducer from "../reducers/productReducer";
 const ProductsContext = createContext();
 
@@ -12,6 +19,27 @@ const ProductsProvider = ({ children }) => {
     showFastDelivery: false,
     sortBy: null,
   });
+
+  useEffect(() => {
+    const source = axios.CancelToken.source();
+    (async () => {
+      try {
+        const {
+          data: { products },
+        } = await axios.get("https://rabikart.tuhindas5.repl.co/products", {
+          cancelToken: source.token,
+        });
+        setProductsData(products);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+
+    return () => {
+      source.cancel("Component got unmounted");
+    };
+  }, []);
+
   return (
     <ProductsContext.Provider
       value={{

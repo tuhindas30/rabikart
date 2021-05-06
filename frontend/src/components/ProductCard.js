@@ -5,6 +5,8 @@ import { FaRegHeart, FaHeart } from "react-icons/fa";
 import { IoBagAddOutline, IoBagCheckSharp } from "react-icons/io5";
 import { BsArrowRightShort } from "react-icons/bs";
 import PuffLoader from "react-spinners/PuffLoader";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../assets/css/ProductCard.css";
 
 const ProductCard = ({
@@ -37,14 +39,24 @@ const ProductCard = ({
           id: _id,
         }
       );
-      setAddToCartLoader("hide");
       if (data.status === "SUCCESS")
         cartDispatch({
           type: "ADD_TO_CART",
-          payload: { item: data.data, setToast },
+          payload: { item: data.data },
         });
+      toast.dark("Added to cart", {
+        position: "bottom-left",
+        autoClose: 4000,
+        hideProgressBar: true,
+      });
     } catch (error) {
-      console.error(error);
+      toast.dark("Error while adding to cart. Please try again", {
+        position: "bottom-left",
+        autoClose: 4000,
+        hideProgressBar: true,
+      });
+    } finally {
+      setAddToCartLoader("hide");
     }
   };
 
@@ -56,14 +68,25 @@ const ProductCard = ({
         const { data } = await axios.delete(
           `https://rabikart.tuhindas5.repl.co/wishlist/${wishItemId}`
         );
-        // console.log(data.data);
-        setAddToWishlistLoader("hide");
-        wishDispatch({
-          type: "SET_WISH_DATA",
-          payload: { wishlist: data.data, setToast },
-        });
+        if (data.status === "SUCCESS") {
+          wishDispatch({
+            type: "SET_WISH_DATA",
+            payload: { wishlist: data.data, setToast },
+          });
+          toast.dark("Removed from wishlist", {
+            position: "bottom-left",
+            autoClose: 4000,
+            hideProgressBar: true,
+          });
+        }
       } catch (error) {
-        console.error(error);
+        toast.dark("Error while removing from wishlist. Please try again", {
+          position: "bottom-left",
+          autoClose: 4000,
+          hideProgressBar: true,
+        });
+      } finally {
+        setAddToWishlistLoader("hide");
       }
     } else {
       try {
@@ -74,14 +97,25 @@ const ProductCard = ({
             id: _id,
           }
         );
-        setAddToWishlistLoader("hide");
-        if (data.status === "SUCCESS")
+        if (data.status === "SUCCESS") {
           wishDispatch({
             type: "ADD_WISH",
             payload: { item: data.data, setToast },
           });
+          toast.dark("Added to wishlist", {
+            position: "bottom-left",
+            autoClose: 4000,
+            hideProgressBar: true,
+          });
+        }
       } catch (error) {
-        console.error(error);
+        toast.dark("Error while adding to wishlist. Please try again", {
+          position: "bottom-left",
+          autoClose: 4000,
+          hideProgressBar: true,
+        });
+      } finally {
+        setAddToWishlistLoader("hide");
       }
     }
   };
