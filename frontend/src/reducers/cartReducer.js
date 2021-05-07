@@ -9,18 +9,6 @@ const cartReducer = (state, { type, payload }) => {
     case "DEC_QTY":
       return [...payload.cart];
     case "REMOVE_ITEM":
-      payload.setToast({
-        display: true,
-        addedOrRemoved: "removed from",
-        fromComponent: "Cart",
-      });
-      setTimeout(() => {
-        payload.setToast({
-          display: false,
-          addedOrRemoved: "removed from",
-          fromComponent: "Cart",
-        });
-      }, 2000);
       return [...payload.items];
     default:
       return state;

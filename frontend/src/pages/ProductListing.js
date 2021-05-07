@@ -6,7 +6,6 @@ import getFilteredData from "../utils/getFilteredData";
 import { useCart } from "../contexts/cart-context";
 import { useWish } from "../contexts/wishlist-context";
 import { useProducts } from "../contexts/products-context";
-import { useToast } from "../contexts/toast-context";
 import ProductCard from "../components/ProductCard";
 import { useState } from "react";
 
@@ -20,7 +19,6 @@ const ProductListing = () => {
     sortBy,
     productDispatch,
   } = useProducts();
-  const { setToast } = useToast();
   const [searchInput, setSearchInput] = useState("");
   const sortedData = getSortedData(productsData, sortBy);
   const filteredData = getFilteredData(
@@ -90,7 +88,6 @@ const ProductListing = () => {
                 wishDispatch={wishDispatch}
                 cartState={cartState}
                 cartDispatch={cartDispatch}
-                setToast={setToast}
               />
             ))
           ) : (

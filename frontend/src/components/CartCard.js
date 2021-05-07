@@ -1,13 +1,12 @@
 import axios from "axios";
 import { useCart } from "../contexts/cart-context";
-import { useToast } from "../contexts/toast-context";
 import "../assets/css/CartCard.css";
 import { Link } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const CartCard = ({ id, item: { product, quantity }, setLoading }) => {
   const { cartDispatch } = useCart();
-  const { setToast } = useToast();
 
   const handleChangeQty = async (e, productId) => {
     setLoading(true);
@@ -26,14 +25,28 @@ const CartCard = ({ id, item: { product, quantity }, setLoading }) => {
   };
 
   const handleRemoveCartItem = async (id) => {
-    const { data } = await axios.delete(
-      `https://rabikart.tuhindas5.repl.co/cart/${id}`
-    );
-    if (data.status === "SUCCESS")
-      cartDispatch({
-        type: "REMOVE_ITEM",
-        payload: { items: data.data, setToast },
+    try {
+      const { data } = await axios.delete(
+        `https://rabikart.tuhindas5.repl.co/cart/${id}`
+      );
+      if (data.status === "SUCCESS") {
+        cartDispatch({
+          type: "REMOVE_ITEM",
+          payload: { items: data.data },
+        });
+        toast.dark("Removed from cart", {
+          position: "bottom-left",
+          autoClose: 4000,
+          hideProgressBar: true,
+        });
+      }
+    } catch {
+      toast.dark("Error while removing from cart", {
+        position: "bottom-left",
+        autoClose: 4000,
+        hideProgressBar: true,
       });
+    }
   };
 
   return (

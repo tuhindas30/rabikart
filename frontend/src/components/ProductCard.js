@@ -25,7 +25,6 @@ const ProductCard = ({
   wishDispatch,
   cartState,
   cartDispatch,
-  setToast,
 }) => {
   const [isAddingToCart, setAddToCartLoader] = useState("hide");
   const [isAddingToWishlist, setAddToWishlistLoader] = useState("hide");
@@ -71,7 +70,7 @@ const ProductCard = ({
         if (data.status === "SUCCESS") {
           wishDispatch({
             type: "SET_WISH_DATA",
-            payload: { wishlist: data.data, setToast },
+            payload: { wishlist: data.data },
           });
           toast.dark("Removed from wishlist", {
             position: "bottom-left",
@@ -100,7 +99,7 @@ const ProductCard = ({
         if (data.status === "SUCCESS") {
           wishDispatch({
             type: "ADD_WISH",
-            payload: { item: data.data, setToast },
+            payload: { item: data.data },
           });
           toast.dark("Added to wishlist", {
             position: "bottom-left",
