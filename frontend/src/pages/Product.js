@@ -3,17 +3,16 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router";
 import { useCart } from "../contexts/cart-context";
 import { useProducts } from "../contexts/products-context";
-import { useToast } from "../contexts/toast-context";
 import { useWish } from "../contexts/wishlist-context";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Product = () => {
   const { productId } = useParams();
   const { productsData } = useProducts();
   const { wishState, wishDispatch } = useWish();
   const { cartState, cartDispatch } = useCart();
-  const { setToast } = useToast();
   const {
     _id,
     modelName,
@@ -44,11 +43,17 @@ const Product = () => {
           id: _id,
         }
       );
-      if (data.status === "SUCCESS")
+      if (data.status === "SUCCESS") {
         cartDispatch({
           type: "ADD_TO_CART",
-          payload: { item: data.data, setToast },
+          payload: { item: data.data },
         });
+        toast.dark("Added to cart", {
+          position: "bottom-left",
+          autoClose: 4000,
+          hideProgressBar: true,
+        });
+      }
     } catch (error) {
       console.error(error);
     }
@@ -61,11 +66,17 @@ const Product = () => {
         const { data } = await axios.delete(
           `https://rabikart.tuhindas5.repl.co/wishlist/${wishItemId}`
         );
-        // console.log(data.data);
-        wishDispatch({
-          type: "SET_WISH_DATA",
-          payload: { wishlist: data.data, setToast },
-        });
+        if (data.status === "SUCCESS") {
+          wishDispatch({
+            type: "SET_WISH_DATA",
+            payload: { wishlist: data.data },
+          });
+          toast.dark("Removed from wishlist", {
+            position: "bottom-left",
+            autoClose: 4000,
+            hideProgressBar: true,
+          });
+        }
       } catch (error) {
         console.error(error);
       }
@@ -77,11 +88,17 @@ const Product = () => {
             id: _id,
           }
         );
-        if (data.status === "SUCCESS")
+        if (data.status === "SUCCESS") {
           wishDispatch({
             type: "ADD_WISH",
-            payload: { item: data.data, setToast },
+            payload: { item: data.data },
           });
+          toast.dark("Added to wishlist", {
+            position: "bottom-left",
+            autoClose: 4000,
+            hideProgressBar: true,
+          });
+        }
       } catch (error) {
         console.error(error);
       }
