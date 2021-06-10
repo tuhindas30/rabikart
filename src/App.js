@@ -15,14 +15,14 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/categories/:id" element={<Home />} />
-      <Route path="/signin" element={<SignIn />} />
-      <Route path="/signup" element={<SignUp />} />
-      <PrivateRoute path="/user" element={<User />} />
       <Route path="/products" element={<ProductListing />} />
       <Route path="/products/:id" element={<Product />} />
+      <Route path="/categories/:id" element={<ProductListing />} />
+      <Route path="/signin" element={<SignIn />} />
+      <Route path="/signup" element={<SignUp />} />
       <Route path="/cart" element={<Cart />} />
       <PrivateRoute path="/wishlist" element={<WishList />} />
+      <PrivateRoute path="/user" element={<User />} />
       <Route path="*" element={<Error404 />}></Route>
     </Routes>
   );
