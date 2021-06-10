@@ -1,15 +1,17 @@
 const cartReducer = (state, { type, payload }) => {
   switch (type) {
-    case "SET_CART_DATA":
-      return [...state, ...payload.cart];
+    case "INITIALISE_CART":
+      return { ...payload.cart };
+
     case "ADD_TO_CART":
-      return [...state, { ...payload.item }];
-    case "INC_QTY":
-      return [...payload.cart];
-    case "DEC_QTY":
-      return [...payload.cart];
-    case "REMOVE_ITEM":
-      return [...payload.items];
+      return { ...payload.cart };
+
+    case "CHANGE_QUANTITY":
+      return { ...payload.cart };
+
+    case "REMOVE_FROM_CART":
+      return { ...payload.cart };
+
     default:
       return state;
   }
