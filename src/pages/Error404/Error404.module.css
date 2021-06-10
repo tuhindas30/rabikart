@@ -1,0 +1,29 @@
+.errorMsgContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 4rem;
+  height: 90vh;
+  background-color: var(--rb-light-grey);
+}
+
+.errorMsg {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  color: var(--rb-light-black);
+}
+
+.errorMsgBold {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.errorMsgTakeHome {
+  padding: 1.5rem 4rem;
+  font-size: 1.2rem;
+  text-align: center;
+}

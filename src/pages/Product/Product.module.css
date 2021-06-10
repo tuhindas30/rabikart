@@ -1,0 +1,141 @@
+.productDetailsContainer {
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+}
+
+.btnSmall {
+  padding: 0.2rem 0.5rem;
+}
+
+.productImage {
+  text-align: center;
+  padding: 1rem;
+  position: relative;
+}
+
+.productImage .image {
+  height: 20rem;
+  object-fit: contain;
+}
+
+.productImage .wishIcon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 50%;
+  padding: 0.5rem;
+  cursor: pointer;
+  background-color: var(--rb-light-grey);
+}
+
+.ratingContainer {
+  padding: 0.5rem 0;
+}
+
+.ratingBadge {
+  font-size: 0.8rem;
+  margin: 0.5rem 0;
+  text-align: center;
+}
+
+.ratingLow {
+  color: var(--rb-black);
+}
+
+.fastDelivery {
+  font-size: 1.5rem;
+  margin-left: 1rem;
+}
+
+.noProductFound {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 4rem;
+  text-align: center;
+  height: 88vh;
+}
+
+.productDetails {
+  padding: 1rem;
+}
+
+.highlightsContainer ul {
+  padding: 1rem;
+  margin-left: 1rem;
+}
+
+.productPageFooter {
+  display: flex;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: var(--rb-very-light-grey);
+}
+
+.productPageFooter button {
+  flex-basis: 50%;
+  margin: 0;
+  border-radius: 0;
+}
+
+.productPageFooter .addToCartBtn {
+  width: 100%;
+  margin: 0;
+  padding: 0.5rem;
+  justify-content: center;
+  color: var(--rb-black);
+  background-color: var(--rb-light-grey);
+}
+
+.productPageFooter .buyProduct {
+  margin: 0;
+  width: 50%;
+}
+
+.productPageBtn,
+.productImage .addToCartBtn,
+.productImage .buyProduct {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .productDetailsContainer {
+    margin: 4rem auto 0 auto;
+    max-width: 80%;
+  }
+
+  .productImage {
+    position: fixed;
+    width: 30%;
+    height: 80vh;
+  }
+
+  .productImage .addToCartBtn {
+    width: 100%;
+    margin: 1rem 0;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--rb-black);
+    background-color: var(--rb-light-grey);
+    border: 0.1rem solid var(--rb-dark-grey);
+  }
+
+  .productImage .buyProduct {
+    display: block;
+    width: 100%;
+  }
+
+  .productDetails {
+    margin-left: 26rem;
+    margin-top: 4rem;
+  }
+
+  .productPageFooter {
+    display: none;
+  }
+}

@@ -1,0 +1,36 @@
+.wishContainer {
+  margin-top: 4rem;
+}
+
+.wishlistHeader {
+  padding: 1rem;
+  font-size: 1.1rem;
+  text-align: center;
+  background-color: var(--rb-very-light-grey);
+  border-bottom: 2px solid var(--rb-grey);
+}
+
+.wishCardContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.emptyWishContainer {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 88vh;
+}
+
+@media screen and (min-width: 768px) {
+  .wishCardContainer {
+    padding: 1rem;
+  }
+  .emptyWishContainer {
+    margin-top: 6rem;
+    height: 80vh;
+  }
+}

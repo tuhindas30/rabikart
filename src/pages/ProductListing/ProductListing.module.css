@@ -1,0 +1,76 @@
+fieldset {
+  border: none;
+}
+
+legend {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.gridContainer {
+  margin-top: 4rem;
+}
+
+.clearBtn {
+  padding: 0.1rem 0.5rem;
+  margin: 0;
+}
+
+.sidebar {
+  width: 100%;
+  padding: 0.5rem 1.2rem;
+}
+
+.blockDisplay {
+  display: block;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.inputMargin {
+  margin-right: 0.5rem;
+  cursor: pointer;
+}
+
+.productListItemContainer {
+  padding: 1rem;
+  background-color: var(--rb-light-grey);
+}
+
+.emptyProductsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5rem;
+  text-align: center;
+  height: 88vh;
+}
+
+@media screen and (min-width: 768px) {
+  fieldset {
+    margin-top: 1rem;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 1rem;
+    cursor: pointer;
+  }
+
+  .sidebar {
+    padding: 0.5rem 1.2rem;
+    position: fixed;
+    width: 20%;
+  }
+
+  .productListItemContainer {
+    padding: 1rem;
+    margin-left: 16rem;
+    width: 80%;
+  }
+
+  .emptyProductsContainer {
+    height: 80vh;
+  }
+}
