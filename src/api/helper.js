@@ -1,20 +1,9 @@
-import axios from "axios";
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-const BASE_URL = "https://rabikart.tuhindas5.repl.co";
-
-// const handleAPIResponse = async (resp) => {
-// 	const response = await resp;
-// 	if (response.status === false) {
-// 		throw new Error(response.message);
-// 	}
-// 	return response;
-// };
-const handleAPIResponse = async (route) => {
-	try {
-		const response = await axios.get(`${BASE_URL}/${route}`);
-		return response;
-	} catch (error) {
-		console.error(error.response.data);
-	}
+const handleApiError = (err) => {
+  console.log(err);
+  const { data } = err.response;
+  throw new Error(data.message);
 };
-export { BASE_URL, handleAPIResponse };
+
+export { BASE_URL, handleApiError };
