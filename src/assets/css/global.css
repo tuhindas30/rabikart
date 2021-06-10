@@ -11,18 +11,30 @@ body {
   background-color: var(--rb-light-grey);
 }
 
-/* .toast {
-  display: block;
-} */
-
 .link {
   text-decoration: none;
   color: var(--rb-light-black);
 }
 
+.overlay {
+  z-index: 15;
+}
+
+.btn.primary.disabled {
+  opacity: 0.5;
+}
+
+.btn-link {
+  width: fit-content;
+  margin: 1rem auto;
+  text-decoration: none;
+  color: var(--rb-very-light-grey);
+}
+
 .flex-icon {
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .Toastify__toast-body {
