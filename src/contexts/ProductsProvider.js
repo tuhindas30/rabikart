@@ -8,12 +8,14 @@ import {
 } from "react";
 import productReducer from "../reducers/productReducer";
 import * as productApi from "../api/product";
+import * as categoryApi from "../api/category";
 import { setupCancelToken } from "../utils/helper";
 const ProductsContext = createContext();
 
 const ProductsProvider = ({ children }) => {
   const [isProductsLoading, setProductsLoading] = useState(false);
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const initialState = {
     isOutOfStock: false,
     isFastDeliveryAvailable: false,
@@ -37,16 +39,33 @@ const ProductsProvider = ({ children }) => {
   setupCancelToken(source);
 
   useEffect(() => {
-    setProductsLoading(true);
     (async () => {
       try {
+        setProductsLoading(true);
         const { data } = await productApi.getAllProducts();
         setProducts(data);
       } catch (err) {
         setProducts([]);
         console.log(err);
+      } finally {
+        setProductsLoading(false);
       }
-      setProductsLoading(false);
+    })();
+    return () => source.cancel("products unmounted");
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setProductsLoading(true);
+        const { data } = await categoryApi.getAllCategories();
+        setCategories(data);
+      } catch (err) {
+        setCategories([]);
+        console.log(err);
+      } finally {
+        setProductsLoading(false);
+      }
     })();
     return () => source.cancel("products unmounted");
   }, []);
@@ -57,6 +76,7 @@ const ProductsProvider = ({ children }) => {
         isProductsLoading,
         products,
         productlistDispatch,
+        categories,
         isOutOfStock,
         isFastDeliveryAvailable,
         isTopRated,

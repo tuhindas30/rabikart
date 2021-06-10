@@ -8,6 +8,7 @@ import Searchbar from "../../components/Searchbar/Searchbar";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import styles from "./ProductListing.module.css";
 import { ReactComponent as EmptyProductSvg } from "./EmptyProductImage.svg";
+import { useParams } from "react-router";
 
 const ProductListing = () => {
   const {
@@ -21,16 +22,17 @@ const ProductListing = () => {
     sortBy,
     priceRange,
   } = useProducts();
-
-  const [searchInput, setSearchInput] = useState("");
+  const { id } = useParams();
   const filteredData = useFilter(
     products,
+    id,
     isOutOfStock,
     isFastDeliveryAvailable,
     isTopRated,
     isTopSeller,
     priceRange
   );
+  const [searchInput, setSearchInput] = useState("");
   const sortedData = getSortedData(filteredData, sortBy);
   const searchData = getSearchData(sortedData, searchInput);
 

@@ -1,19 +1,28 @@
 const useFilter = (
   productlist,
+  categoryId,
   isOutOfStock,
   isFastDeliveryAvailable,
   isTopRated,
   isTopSeller,
   priceRange
 ) => {
+  const filterCategory = () => {
+    if (categoryId !== undefined) {
+      return productlist.filter(({ category }) => category._id === categoryId);
+    }
+    return productlist;
+  };
+
   const filterOutOfStock = () => {
+    const products = filterCategory();
     switch (isOutOfStock) {
       case true:
-        return productlist.filter((product) => product.inStock);
+        return products.filter((product) => product.inStock);
       case false:
-        return productlist;
+        return products;
       default:
-        return productlist;
+        return products;
     }
   };
 
