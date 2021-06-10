@@ -1,0 +1,27 @@
+.searchMobile {
+  margin-top: 4rem;
+  padding: 0.5rem;
+  text-align: center;
+  border-bottom: 1px solid var(--rb-grey);
+}
+
+.searchMobile input {
+  padding: 0.5rem;
+  font-size: 1.1rem;
+  width: 80%;
+  outline: none;
+  background-color: var(--rb-light-grey);
+  border: 0.1rem solid var(--rb-primary);
+  border-radius: 0.3rem;
+}
+
+.searchMobile input:focus {
+  border-color: var(--rb-primary);
+  box-shadow: 0 0 0.2rem 1px var(--rb-primary);
+}
+
+@media screen and (min-width: 768px) {
+  .searchMobile {
+    display: none;
+  }
+}
