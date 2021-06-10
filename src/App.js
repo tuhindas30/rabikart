@@ -1,27 +1,29 @@
 import "./assets/css/global.css";
 import { Routes, Route } from "react-router-dom";
-import NavBar from "./components/NavBar";
-import Cart from "./pages/Cart";
-import ProductListing from "./pages/ProductListing";
-import WishList from "./pages/WishList";
-import Home from "./pages/Home";
-import Product from "./pages/Product";
-import Error404 from "./pages/Error404";
-import { ToastContainer } from "react-toastify";
+import Cart from "./pages/Cart/Cart";
+import ProductListing from "./pages/ProductListing/ProductListing";
+import WishList from "./pages/Wishlist/Wishlist";
+import Home from "./pages/Home/Home";
+import Product from "./pages/Product/Product";
+import Error404 from "./pages/Error404/Error404";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import User from "./pages/User";
+import PrivateRoute from "./routes/PrivateRoute";
 
 export default function App() {
   return (
-    <div className="App">
-      <NavBar />
-      <ToastContainer />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/product-listing" element={<ProductListing />} />
-        <Route path="/product/:productId" element={<Product />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/wishlist" element={<WishList />} />
-        <Route path="*" element={<Error404 />}></Route>
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/categories/:id" element={<Home />} />
+      <Route path="/signin" element={<SignIn />} />
+      <Route path="/signup" element={<SignUp />} />
+      <PrivateRoute path="/user" element={<User />} />
+      <Route path="/products" element={<ProductListing />} />
+      <Route path="/products/:id" element={<Product />} />
+      <Route path="/cart" element={<Cart />} />
+      <PrivateRoute path="/wishlist" element={<WishList />} />
+      <Route path="*" element={<Error404 />}></Route>
+    </Routes>
   );
 }
