@@ -33,6 +33,11 @@
 
 ## Demo
 
+### Demo Credentials
+
+- Email: test@gmail.com
+- Password: Test@12345
+
 ### [Click here](https://rabikart.netlify.app/) for the Live Demo
 
 ## Getting Started
