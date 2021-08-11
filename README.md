@@ -10,6 +10,7 @@
 - [Features](#features)
 - [Demo](#demo)
 - [Getting Started](#getting-started)
+- [Development](#development)
 - [License](#license)
 - [Disclaimer](#disclaimer)
 - [Useful Links](#useful-links)
@@ -76,6 +77,10 @@ yarn start
 ```
 
 Now open `http://localhost:3000/` to see the app running.
+
+## Development
+
+Currently development is going on [development branch](https://github.com/tuhindas30/rabikart/tree/development)
 
 ## License
 
