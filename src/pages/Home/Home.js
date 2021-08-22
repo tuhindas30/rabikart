@@ -6,7 +6,6 @@ import banner2 from "./Banner2.jpg";
 import signinBanner from "./SigninBanner.jpg";
 import allCategoryBanner from "./AllCategoryBanner.jpg";
 import { useProducts } from "../../contexts/ProductsProvider";
-import { useState } from "react";
 
 const Home = () => {
   const { isProductsLoading, categories } = useProducts();
