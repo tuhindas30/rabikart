@@ -34,7 +34,6 @@ const WishlistProvider = ({ children }) => {
             });
           }
         } catch (err) {
-          console.log(err.message);
         } finally {
           setWishlistLoading(false);
         }
@@ -59,7 +58,6 @@ const WishlistProvider = ({ children }) => {
         }
       } catch (err) {
         showToast("Something went wrong. Please try again :)");
-        console.log(err.message);
       } finally {
         setWishlistLoading(false);
       }
@@ -81,7 +79,6 @@ const WishlistProvider = ({ children }) => {
       }
     } catch (err) {
       showToast("Something went wrong. Please try again :)");
-      console.log(err.message);
     } finally {
       setWishlistLoading(false);
     }

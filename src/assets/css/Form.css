@@ -13,7 +13,6 @@
   border-radius: 1rem;
   border: 1px solid var(--rb-dark-grey);
   background-color: var(--rb-light-grey);
-  /* border: 1px solid black; */
 }
 
 .form--control h1 {
@@ -34,7 +33,6 @@
 .form--control label div {
   padding: 0.5rem 0;
   font-weight: 600;
-  /* display: block; */
 }
 
 .form--control input {

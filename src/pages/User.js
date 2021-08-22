@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../contexts/AuthProvider";
 import DefaultWithoutSearch from "../layouts/DefaultWithoutSearch";
 import "../assets/css/Form.css";
+import NavTabs from "../components/NavTabs/NavTabs";
 
 const User = () => {
   const [isPassHidden, setShowPass] = useState(true);
@@ -110,6 +111,7 @@ const User = () => {
   if (isUserLoading) {
     return (
       <DefaultWithoutSearch>
+        <NavTabs />
         <h1 className="overlay">Loading ...</h1>
       </DefaultWithoutSearch>
     );
@@ -117,7 +119,10 @@ const User = () => {
 
   return (
     <DefaultWithoutSearch>
-      <div className="form--container justify-space">
+      <NavTabs />
+      <div
+        className="form--container justify-space"
+        style={{ height: "80vh", marginTop: "0" }}>
         <form className="form--control" onSubmit={handleUpdateUser}>
           <h1>Update Info</h1>
           <label htmlFor="email">

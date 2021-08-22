@@ -14,13 +14,13 @@ const SignIn = () => {
     isDisabled: true,
     isLoading: false,
   });
-  const { isUserLoading, token, signin } = useAuth();
+  const { token, signin } = useAuth();
   const { state } = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     token && navigate("/");
-  }, [token]);
+  }, [token, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,14 +63,6 @@ const SignIn = () => {
       setSubmitBtn((state) => ({ ...state, isDisabled: true }));
     }
   };
-
-  // if (isUserLoading) {
-  //   return (
-  //     <DefaultWithoutSearch>
-  //       <h1 className="overlay">Loading ...</h1>
-  //     </DefaultWithoutSearch>
-  //   );
-  // }
 
   return (
     <DefaultWithoutSearch>

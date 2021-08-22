@@ -6,6 +6,7 @@ import { ProductsProvider } from "./contexts/ProductsProvider";
 import { CartProvider } from "./contexts/CartProvider";
 import { WishlistProvider } from "./contexts/WishlistProvider";
 import { AuthProvider } from "./contexts/AuthProvider";
+import { OrderProvider } from "./contexts/OrderProvider";
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
@@ -13,11 +14,13 @@ ReactDOM.render(
     <Router>
       <ProductsProvider>
         <AuthProvider>
-          <CartProvider>
-            <WishlistProvider>
-              <App />
-            </WishlistProvider>
-          </CartProvider>
+          <OrderProvider>
+            <CartProvider>
+              <WishlistProvider>
+                <App />
+              </WishlistProvider>
+            </CartProvider>
+          </OrderProvider>
         </AuthProvider>
       </ProductsProvider>
     </Router>

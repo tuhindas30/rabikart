@@ -12,6 +12,7 @@ import showToast from "../utils/showToast";
 import axios from "axios";
 import { setupCancelToken } from "../utils/helper";
 import { useNavigate } from "react-router";
+import { useOrder } from "./OrderProvider";
 const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
@@ -23,6 +24,7 @@ const CartProvider = ({ children }) => {
   const [isCartLoading, setCartLoading] = useState(false);
   const navigate = useNavigate();
   const { token } = useAuth();
+  const { orderState } = useOrder();
   const source = axios.CancelToken.source();
   setupCancelToken(source);
 
@@ -38,7 +40,7 @@ const CartProvider = ({ children }) => {
       });
     }
     return () => source.cancel("cart unmounted");
-  }, [token]);
+  }, [token, orderState]);
 
   const syncCartFromServer = async (localCartItems, cartDispatch) => {
     try {
@@ -60,7 +62,6 @@ const CartProvider = ({ children }) => {
         );
       }
     } catch (err) {
-      console.log(err);
     } finally {
       setCartLoading(false);
     }
@@ -82,7 +83,6 @@ const CartProvider = ({ children }) => {
         });
       }
     } catch (err) {
-      console.log(err);
     } finally {
       setCartLoading(false);
     }
@@ -146,7 +146,6 @@ const CartProvider = ({ children }) => {
       }
     } catch (err) {
       showToast("Something went wrong. Please try again :)");
-      console.log(err);
     } finally {
       setCartLoading(false);
     }
@@ -180,7 +179,6 @@ const CartProvider = ({ children }) => {
       }
       return response;
     } catch (err) {
-      console.log(err.message);
       if (err.response.status === 400) {
         alert(`Session Expired\nPlease sign-in again`);
       } else {
@@ -315,7 +313,6 @@ const CartProvider = ({ children }) => {
       }
     } catch (err) {
       showToast("Something went wrong. Please try again :)");
-      console.log(err.message);
     } finally {
       setCartLoading(false);
     }

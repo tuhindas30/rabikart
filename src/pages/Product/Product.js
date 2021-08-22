@@ -13,7 +13,7 @@ import {
   FaCartPlus,
   FaShoppingCart,
 } from "react-icons/fa";
-import { ReactComponent as EmptyProductSvg } from "./EmptyProductImage.svg";
+import { ReactComponent as EmptyProductSvg } from "../../assets/images/EmptyProductImage.svg";
 
 const Product = () => {
   const { id } = useParams();

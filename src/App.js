@@ -1,6 +1,7 @@
 import "./assets/css/global.css";
 import { Routes, Route } from "react-router-dom";
 import Cart from "./pages/Cart/Cart";
+import Checkout from "./pages/Checkout/Checkout";
 import ProductListing from "./pages/ProductListing/ProductListing";
 import WishList from "./pages/Wishlist/Wishlist";
 import Home from "./pages/Home/Home";
@@ -10,6 +11,7 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import User from "./pages/User";
 import PrivateRoute from "./routes/PrivateRoute";
+import Order from "./pages/Order/Order";
 
 export default function App() {
   return (
@@ -21,9 +23,11 @@ export default function App() {
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/cart" element={<Cart />} />
+      <Route path="/checkout" element={<Checkout />} />
       <PrivateRoute path="/wishlist" element={<WishList />} />
       <PrivateRoute path="/user" element={<User />} />
-      <Route path="*" element={<Error404 />}></Route>
+      <PrivateRoute path="/orders" element={<Order />} />
+      <Route path="*" element={<Error404 />} />
     </Routes>
   );
 }

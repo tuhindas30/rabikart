@@ -5,11 +5,11 @@ import DefaultWithoutSearch from "../../layouts/DefaultWithoutSearch";
 import styles from "./Cart.module.css";
 import { ReactComponent as EmptyCartSvg } from "./EmptyCartImage.svg";
 import { useAuth } from "../../contexts/AuthProvider";
+import PriceDetail from "../../components/PriceDetail/PriceDetail";
 
 const Cart = () => {
   const { token } = useAuth();
   const { cartState, isCartLoading } = useCart();
-  const deliveryCharge = cartState.totalPrice > 500 ? 50 : 0;
 
   if (isCartLoading) {
     return (
@@ -43,60 +43,33 @@ const Cart = () => {
 
   return (
     <DefaultWithoutSearch>
-      <h3 className={styles.cartHeader}>
+      <h3 className={styles.heading}>
         My Cart ({cartState.items.length > 0 && cartState.items.length})
       </h3>
-      <div className={styles.cartItemContainer}>
-        <div className={styles.cartItem}>
+      <div className={styles.container}>
+        <div className={styles.cartItems}>
           {cartState.items.map(({ product, quantity }) => (
             <CartCard key={product._id} product={product} quantity={quantity} />
           ))}
-        </div>
-        <div className={styles.priceDetails}>
-          <header className={styles.priceDetailsHeader}>Price Details</header>
-          <div className={styles.details}>
-            <div className="label">Price ({cartState.items.length} items)</div>
-            <div className="amount">₹ {cartState.totalPrice}</div>
-          </div>
-          <div className={styles.details}>
-            <div className="delivery-charges">Delivery Charges</div>
-            <div className="amount">
-              {deliveryCharge > 0 ? `₹ ${deliveryCharge}` : "FREE"}
-            </div>
-          </div>
-          <div className={`${styles.totalPrice} ${styles.details}`}>
-            <div className="label">Total Price</div>
-            <div className="amount">
-              ₹ {cartState.totalPrice + deliveryCharge}
-            </div>
-          </div>
-        </div>
-        {token ? (
-          <button className={`btn primary ${styles.placeOrder}`}>
-            Place Order
-          </button>
-        ) : (
           <Link
-            to="/signin"
-            className={`btn links btn-link ${styles.placeOrder}`}>
+            to={token ? "/checkout" : "/signin"}
+            className={`btn links btn-link ${styles.orderBtn}`}>
             Place Order
           </Link>
-        )}
+        </div>
+
+        <PriceDetail />
       </div>
       {cartState.items.length > 0 && (
         <footer className={styles.cartFooter}>
           <p style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
-            ₹{cartState.totalPrice + deliveryCharge}
+            ₹{cartState.totalPrice}
           </p>
-          {token ? (
-            <button className="btn primary">Place Order</button>
-          ) : (
-            <Link
-              to="/signin"
-              className={`btn links btn-link ${styles.orderBtn}`}>
-              Place Order
-            </Link>
-          )}
+          <Link
+            to={token ? "/checkout" : "/signin"}
+            className={`btn links btn-link ${styles.orderBtn}`}>
+            Place Order
+          </Link>
         </footer>
       )}
     </DefaultWithoutSearch>

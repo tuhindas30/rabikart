@@ -40,7 +40,6 @@ const AuthProvider = ({ children }) => {
         alert(`${err.message}\nPlease sign-in again`);
         signout();
         navigate("/signin");
-        console.log(err.message);
       } finally {
         setUserLoading(false);
       }
@@ -88,7 +87,6 @@ const AuthProvider = ({ children }) => {
       signout();
     } catch (err) {
       alert(err.message);
-      console.log(err.message);
     } finally {
       setUserLoading(false);
     }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthProvider";
 import "../assets/css/Form.css";
 import DefaultWithoutSearch from "../layouts/DefaultWithoutSearch";
@@ -8,7 +8,6 @@ const SignUp = () => {
   const [isPassHidden, setShowPass] = useState(true);
   const navigate = useNavigate();
   const { token, signup } = useAuth();
-  const { state } = useLocation();
   const [submitBtn, setSubmitBtn] = useState({
     isDisabled: true,
     isLoading: false,
@@ -21,7 +20,7 @@ const SignUp = () => {
 
   useEffect(() => {
     token && navigate("/");
-  }, [token]);
+  }, [token, navigate]);
 
   const handleSumbit = async (e) => {
     e.preventDefault();
