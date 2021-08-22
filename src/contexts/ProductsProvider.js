@@ -46,7 +46,6 @@ const ProductsProvider = ({ children }) => {
         setProducts(data);
       } catch (err) {
         setProducts([]);
-        console.log(err);
       } finally {
         setProductsLoading(false);
       }
@@ -62,7 +61,6 @@ const ProductsProvider = ({ children }) => {
         setCategories(data);
       } catch (err) {
         setCategories([]);
-        console.log(err);
       } finally {
         setProductsLoading(false);
       }
