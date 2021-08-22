@@ -1,0 +1,21 @@
+.orderItem {
+  display: flex;
+  padding: 1rem;
+}
+
+.image {
+  width: 30%;
+  height: 8rem;
+}
+
+.orderDetails {
+  padding: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+  .image {
+    width: 20rem;
+    height: 20rem;
+    object-fit: contain;
+  }
+}

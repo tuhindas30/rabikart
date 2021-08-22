@@ -1,0 +1,27 @@
+.tabs {
+  margin-top: 4rem;
+  padding: 1rem;
+  border-bottom: 2px solid var(--rb-grey);
+}
+
+.navPills {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  list-style: none;
+  font-size: 1.2rem;
+}
+
+.navLink {
+  color: var(--rb-black);
+  text-decoration: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+}
+
+.active {
+  font-weight: bold;
+}
