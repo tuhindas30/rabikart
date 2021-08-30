@@ -1,6 +1,6 @@
-import styles from "./Navbar.module.css";
+import styles from "./NavSearch.module.css";
 
-const Search = ({ input, onInput }) => {
+const NavSearch = ({ input, onInput }) => {
   return (
     <div className={styles.searchDesktop}>
       <input
@@ -14,4 +14,4 @@ const Search = ({ input, onInput }) => {
   );
 };
 
-export default Search;
+export default NavSearch;

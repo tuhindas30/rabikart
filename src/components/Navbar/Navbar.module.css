@@ -46,10 +46,6 @@
   font-size: 1rem;
 }
 
-.searchDesktop {
-  display: none;
-}
-
 @media screen and (min-width: 768px) {
   .navbar {
     padding: 0 4rem;
@@ -68,20 +64,6 @@
 
   .navLinks {
     font-size: 1.6rem;
-  }
-
-  .searchDesktop {
-    display: block;
-    flex-basis: 40%;
-  }
-
-  .searchDesktop input {
-    padding: 0.5rem;
-    width: 100%;
-    outline: none;
-    border: 0.1rem solid var(--rb-light-grey);
-    background-color: var(--rb-light-grey);
-    border-radius: 0.3rem;
   }
 
   .signinBtn,

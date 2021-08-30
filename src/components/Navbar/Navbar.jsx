@@ -4,7 +4,7 @@ import { useWishlist } from "../../contexts/WishlistProvider";
 import { useAuth } from "../../contexts/AuthProvider";
 import { FaHeart, FaShoppingCart, FaUserCircle } from "react-icons/fa";
 import Badge from "../Badge/Badge";
-import Search from "./Search";
+import NavSearch from "../NavSearch/NavSearch";
 import styles from "./Navbar.module.css";
 
 const Navbar = ({ search = false, searchInput = "", setSearchInput }) => {
@@ -19,7 +19,7 @@ const Navbar = ({ search = false, searchInput = "", setSearchInput }) => {
           RabiKart
         </Link>
       </div>
-      {search && <Search input={searchInput} onInput={setSearchInput} />}
+      {search && <NavSearch input={searchInput} onInput={setSearchInput} />}
       <div className={`nav-right ${styles.navRight}`}>
         <Link
           to="/wishlist"
