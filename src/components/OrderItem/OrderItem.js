@@ -17,7 +17,7 @@ const OrderItem = ({ order, item }) => {
         <div style={{ marginTop: "1rem" }}>
           <h3>Payment</h3>
           <div>Order ID: {order.payment.orderId}</div>
-          <div>Payment ID: {order.payment.paymentId}</div>
+          <div>Payment ID: {order.payment.paymentId ?? "Payment pending"}</div>
         </div>
         <div style={{ marginTop: "1rem" }}>
           <h3>Delivery</h3>

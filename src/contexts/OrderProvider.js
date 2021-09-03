@@ -5,20 +5,20 @@ import {
   useReducer,
   useState,
 } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthProvider";
 import orderReducer from "../reducers/orderReducer";
 import * as orderApi from "../api/order";
-import axios from "axios";
 import { setupCancelToken } from "../utils/helper";
-import { useNavigate } from "react-router";
 
 const OrderContext = createContext();
 
 const OrderProvider = ({ children }) => {
+  const navigate = useNavigate();
   const [orderState, orderDispatch] = useReducer(orderReducer, []);
   const [isOrderLoading, setOrderLoading] = useState(false);
   const { token } = useAuth();
-  const navigate = useNavigate();
   const source = axios.CancelToken.source();
   setupCancelToken(source);
 

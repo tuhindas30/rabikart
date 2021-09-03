@@ -11,8 +11,6 @@ import cartReducer from "../reducers/cartReducer";
 import showToast from "../utils/showToast";
 import axios from "axios";
 import { setupCancelToken } from "../utils/helper";
-import { useNavigate } from "react-router";
-import { useOrder } from "./OrderProvider";
 const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
@@ -22,16 +20,14 @@ const CartProvider = ({ children }) => {
   };
   const [cartState, cartDispatch] = useReducer(cartReducer, localCart);
   const [isCartLoading, setCartLoading] = useState(false);
-  const navigate = useNavigate();
   const { token } = useAuth();
-  const { orderState } = useOrder();
   const source = axios.CancelToken.source();
   setupCancelToken(source);
 
   useEffect(() => {
     if (token) {
       (async () => {
-        await doesLocalCartHasItems(localCart, cartDispatch);
+        await doesLocalCartHasItems(localCart);
       })();
     } else {
       cartDispatch({
@@ -40,9 +36,9 @@ const CartProvider = ({ children }) => {
       });
     }
     return () => source.cancel("cart unmounted");
-  }, [token, orderState]);
+  }, [token]);
 
-  const syncCartFromServer = async (localCartItems, cartDispatch) => {
+  const syncCartFromServer = async (localCartItems) => {
     try {
       setCartLoading(true);
       const response = await cartApi.updateCart(localCartItems);
@@ -67,7 +63,7 @@ const CartProvider = ({ children }) => {
     }
   };
 
-  const getCartFromServer = async (cartDispatch) => {
+  const getCartFromServer = async () => {
     try {
       setCartLoading(true);
       const response = await cartApi.getCart();
@@ -88,11 +84,11 @@ const CartProvider = ({ children }) => {
     }
   };
 
-  const doesLocalCartHasItems = async (localCart, cartDispatch) => {
+  const doesLocalCartHasItems = async (localCart) => {
     if (localCart.items.length > 0) {
-      await syncCartFromServer(localCart.items, cartDispatch);
+      await syncCartFromServer(localCart.items);
     } else {
-      await getCartFromServer(cartDispatch);
+      await getCartFromServer();
     }
   };
 
@@ -125,12 +121,11 @@ const CartProvider = ({ children }) => {
       },
     });
     showToast("Product added to cart successfully");
-    navigate("/cart");
+    return true;
   };
 
   const addToCartServer = async (productId, qty) => {
     try {
-      setCartLoading(true);
       const response = await cartApi.addToCart(productId, qty);
       if (response.status === "SUCCESS") {
         cartDispatch({
@@ -142,26 +137,23 @@ const CartProvider = ({ children }) => {
             },
           },
         });
-        navigate("/cart");
+        return true;
       }
     } catch (err) {
       showToast("Something went wrong. Please try again :)");
-    } finally {
-      setCartLoading(false);
     }
   };
 
   const addToCart = async (product, productId, qty = 1) => {
     if (token) {
-      await addToCartServer(productId, qty);
+      return await addToCartServer(productId, qty);
     } else {
-      addToCartLocally(product, qty);
+      return addToCartLocally(product, qty);
     }
   };
 
   const changeCartItemQuantityServer = async (productId, quantity) => {
     try {
-      setCartLoading(true);
       const response = await cartApi.updateCartItemQuantity(
         productId,
         quantity
@@ -184,8 +176,6 @@ const CartProvider = ({ children }) => {
       } else {
         showToast("Something went wrong. Please try again :)");
       }
-    } finally {
-      setCartLoading(false);
     }
   };
 
@@ -297,7 +287,6 @@ const CartProvider = ({ children }) => {
 
   const removeFromCartServer = async (productId) => {
     try {
-      setCartLoading(true);
       const response = await cartApi.updateCartItemQuantity(productId, 0);
       if (response.status === "SUCCESS") {
         cartDispatch({
@@ -313,8 +302,6 @@ const CartProvider = ({ children }) => {
       }
     } catch (err) {
       showToast("Something went wrong. Please try again :)");
-    } finally {
-      setCartLoading(false);
     }
   };
 
@@ -330,6 +317,7 @@ const CartProvider = ({ children }) => {
     <CartContext.Provider
       value={{
         isCartLoading,
+        getCartFromServer,
         addToCart,
         increaseCartItemQuantity,
         decreaseCartItemQuantity,

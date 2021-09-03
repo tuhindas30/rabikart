@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useAuth } from "../contexts/AuthProvider";
 import DefaultWithoutSearch from "../layouts/DefaultWithoutSearch";
-import "../assets/css/Form.css";
 import NavTabs from "../components/NavTabs/NavTabs";
+import { ReactComponent as Loader } from "../assets/images/Loader.svg";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import "../assets/css/Form.css";
 
 const User = () => {
   const [isPassHidden, setShowPass] = useState(true);
@@ -112,7 +114,9 @@ const User = () => {
     return (
       <DefaultWithoutSearch>
         <NavTabs />
-        <h1 className="overlay">Loading ...</h1>
+        <div className="overlay">
+          <Loader />
+        </div>
       </DefaultWithoutSearch>
     );
   }
@@ -160,13 +164,15 @@ const User = () => {
               required
             />
             {isPassHidden ? (
-              <i
+              <AiFillEye
                 onClick={() => setShowPass(false)}
-                className="bi bi-eye-fill"></i>
+                className="password-icon"
+              />
             ) : (
-              <i
+              <AiFillEyeInvisible
                 onClick={() => setShowPass(true)}
-                className="bi bi-eye-slash-fill"></i>
+                className="password-icon"
+              />
             )}
           </label>
           <label className="form--pass" htmlFor="password">
@@ -179,13 +185,15 @@ const User = () => {
               required
             />
             {isPassHidden ? (
-              <i
+              <AiFillEye
                 onClick={() => setShowPass(false)}
-                className="bi bi-eye-fill"></i>
+                className="password-icon"
+              />
             ) : (
-              <i
+              <AiFillEyeInvisible
                 onClick={() => setShowPass(true)}
-                className="bi bi-eye-slash-fill"></i>
+                className="password-icon"
+              />
             )}
           </label>
           <label className="form--pass" htmlFor="password">
@@ -198,22 +206,34 @@ const User = () => {
               required
             />
             {isPassHidden ? (
-              <i
+              <AiFillEye
                 onClick={() => setShowPass(false)}
-                className="bi bi-eye-fill"></i>
+                className="password-icon"
+              />
             ) : (
-              <i
+              <AiFillEyeInvisible
                 onClick={() => setShowPass(true)}
-                className="bi bi-eye-slash-fill"></i>
+                className="password-icon"
+              />
             )}
           </label>
+          <div style={{ color: "var(--rb-red)", fontWeight: "bold" }}>
+            {userCredentials.confirmPassword &&
+            userCredentials.newPassword !== userCredentials.confirmPassword
+              ? "Passwords don't match"
+              : ""}
+          </div>
           <button
             className={`btn primary ${
-              changePasswordBtn.isDisabled && "disabled-btn"
+              changePasswordBtn.isDisabled ? "disabled-btn" : ""
             }`}
             type="submit"
             disabled={changePasswordBtn.isDisabled}>
-            {changePasswordBtn.isLoading ? "Loading ..." : "Change Password"}
+            {changePasswordBtn.isLoading ? (
+              <Loader style={{ width: "1.5rem", height: "1.5rem" }} />
+            ) : (
+              "Change Password"
+            )}
           </button>
         </form>
       </div>

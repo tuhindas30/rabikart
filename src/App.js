@@ -23,7 +23,7 @@ export default function App() {
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/cart" element={<Cart />} />
-      <Route path="/checkout" element={<Checkout />} />
+      <PrivateRoute path="/checkout" element={<Checkout />} />
       <PrivateRoute path="/wishlist" element={<WishList />} />
       <PrivateRoute path="/user" element={<User />} />
       <PrivateRoute path="/orders" element={<Order />} />

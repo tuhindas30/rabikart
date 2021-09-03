@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import * as authApi from "../api/auth";
 import * as userApi from "../api/user";
@@ -7,7 +8,6 @@ import {
   setupAuthHeader,
   setupCancelToken,
 } from "../utils/helper";
-import { useNavigate } from "react-router";
 import showToast from "../utils/showToast";
 import axios from "axios";
 
@@ -57,18 +57,29 @@ const AuthProvider = ({ children }) => {
   };
 
   const signup = async ({ username, email, password }) => {
-    await authApi.signup(username, email, password);
+    try {
+      await authApi.signup(username, email, password);
+    } catch (err) {
+      alert(err.message);
+    }
   };
 
   const signin = async ({ email, password }) => {
-    const response = await authApi.signin(email, password);
-    if (response.status === "SUCCESS") {
-      localStorage?.setItem("__auth_user", JSON.stringify(response.data.user));
-      localStorage?.setItem(
-        "__auth_token",
-        JSON.stringify(response.data.token)
-      );
-      setupAuthHeader(response.data.token);
+    try {
+      const response = await authApi.signin(email, password);
+      if (response.status === "SUCCESS") {
+        localStorage?.setItem(
+          "__auth_user",
+          JSON.stringify(response.data.user)
+        );
+        localStorage?.setItem(
+          "__auth_token",
+          JSON.stringify(response.data.token)
+        );
+        setupAuthHeader(response.data.token);
+      }
+    } catch (err) {
+      alert(err.message);
     }
   };
 
@@ -93,12 +104,16 @@ const AuthProvider = ({ children }) => {
   };
 
   const updateUser = async (emailId) => {
-    setUserLoading(true);
-    const response = await userApi.updateUserById(user.id, emailId);
-    if (response.status === "SUCCESS") {
-      localStorage?.setItem("__auth_user", JSON.stringify(response.data));
-      setUserLoading(false);
-      showToast("Email updated successfully");
+    try {
+      setUserLoading(true);
+      const response = await userApi.updateUserById(user.id, emailId);
+      if (response.status === "SUCCESS") {
+        localStorage?.setItem("__auth_user", JSON.stringify(response.data));
+        setUserLoading(false);
+        showToast("Email updated successfully");
+      }
+    } catch (err) {
+      alert(err.message);
     }
   };
 

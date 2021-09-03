@@ -1,5 +1,9 @@
 import { Link } from "react-router-dom";
-import styles from "./ProductCard.module.css";
+import { useWishlist } from "../../contexts/WishlistProvider";
+import { useCart } from "../../contexts/CartProvider";
+import { useState } from "react";
+import { ReactComponent as Loader } from "../../assets/images/Loader.svg";
+import { BiCheckDouble } from "react-icons/bi";
 import {
   FaRegHeart,
   FaHeart,
@@ -7,9 +11,7 @@ import {
   FaCartPlus,
   FaShoppingCart,
 } from "react-icons/fa";
-import { BiCheckDouble } from "react-icons/bi";
-import { useWishlist } from "../../contexts/WishlistProvider";
-import { useCart } from "../../contexts/CartProvider";
+import styles from "./ProductCard.module.css";
 
 const ProductCard = ({ product }) => {
   const {
@@ -19,21 +21,33 @@ const ProductCard = ({ product }) => {
     removeFromWishlist,
   } = useWishlist();
   const { isCartLoading, cartState, addToCart } = useCart();
+  const [loader, setLoader] = useState({ cart: false, wishlist: false });
 
   const handleAddToCart = async (product, productId) => {
+    setLoader((state) => ({ ...state, cart: true }));
     await addToCart(product, productId);
+    setLoader((state) => ({ ...state, cart: false }));
   };
 
   const handleAddOrRemoveWishListItems = async (productId) => {
+    setLoader((state) => ({ ...state, wishlist: true }));
     if (wishlistState.some((item) => item.product._id === productId)) {
       await removeFromWishlist(productId);
     } else {
       await addToWishlist(productId);
     }
+    setLoader((state) => ({ ...state, wishlist: false }));
   };
 
   return (
     <div className={`card ${styles.productListItem}`}>
+      {loader.wishlist ? (
+        <div className="overlay">
+          <Loader width="5rem" height="5rem" />
+        </div>
+      ) : (
+        ""
+      )}
       <button
         onClick={() => handleAddOrRemoveWishListItems(product._id)}
         className={`btn secondary flex-icon ${styles.wishIcon} ${
@@ -124,11 +138,15 @@ const ProductCard = ({ product }) => {
             <button
               onClick={() => handleAddToCart(product, product._id)}
               className={`btn primary ${styles.addToCartBtn} ${
-                isCartLoading && "disabled"
+                isCartLoading ? "disabled" : ""
               }`}
               disabled={isCartLoading}>
               <div style={{ marginRight: "0.5rem" }}>
-                {isCartLoading ? "GOING TO CART ..." : "ADD TO CART"}
+                {loader.cart ? (
+                  <Loader width="2rem" height="2rem" />
+                ) : (
+                  "ADD TO CART"
+                )}
               </div>{" "}
               <FaCartPlus />{" "}
             </button>

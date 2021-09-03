@@ -1,0 +1,22 @@
+.footer {
+  padding: 1rem 0;
+}
+
+.footerHeading {
+  text-align: center;
+}
+
+.credits {
+  text-align: center;
+}
+
+.profileLink {
+  color: var(--rb-primary);
+  margin-left: 0.5rem;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.profileLink:hover {
+  text-decoration: underline;
+}

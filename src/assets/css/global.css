@@ -17,6 +17,7 @@ body {
 }
 
 .overlay {
+  padding: 1rem;
   z-index: 15;
 }
 

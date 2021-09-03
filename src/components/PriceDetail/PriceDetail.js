@@ -22,6 +22,11 @@ const PriceDetail = () => {
         <div className="label">Total Price</div>
         <div className="amount">₹ {cartState.totalPrice}</div>
       </div>
+      <div>
+        <b>N.B.: (after clicking "Continue")</b>
+        <div>Test Card: 5267 3181 8797 5449</div>
+        <div>Any random CVV, Any future expiry date, Any random OTP</div>
+      </div>
     </div>
   );
 };

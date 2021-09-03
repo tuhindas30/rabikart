@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { useFilter } from "../../utils/useFilter";
+import { useParams } from "react-router-dom";
 import { useProducts } from "../../contexts/ProductsProvider";
-import getSortedData from "../../utils/getSortedData";
-import getSearchData from "../../utils/getSearchData";
-import DefaultWithSearch from "../../layouts/DefaultWithSearch";
 import Searchbar from "../../components/Searchbar/Searchbar";
 import ProductCard from "../../components/ProductCard/ProductCard";
-import styles from "./ProductListing.module.css";
+import DefaultWithSearch from "../../layouts/DefaultWithSearch";
+import { useFilter } from "../../utils/useFilter";
+import getSortedData from "../../utils/getSortedData";
+import getSearchData from "../../utils/getSearchData";
 import { ReactComponent as EmptyProductSvg } from "./EmptyProductImage.svg";
-import { useParams } from "react-router";
+import { ReactComponent as Loader } from "../../assets/images/Loader.svg";
+import styles from "./ProductListing.module.css";
 
 const ProductListing = () => {
   const {
@@ -39,12 +40,14 @@ const ProductListing = () => {
   if (isProductsLoading) {
     return (
       <DefaultWithSearch>
-        <h1 className="overlay">Loading ...</h1>
+        <h1 className="overlay">
+          <Loader />
+        </h1>
       </DefaultWithSearch>
     );
   }
 
-  if (products.length <= 0) {
+  if (products.length === 0) {
     return (
       <DefaultWithSearch>
         <div className={styles.emptyProductsContainer}>

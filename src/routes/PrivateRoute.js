@@ -1,4 +1,4 @@
-import { Navigate, Route } from "react-router";
+import { Navigate, Route } from "react-router-dom";
 import { useAuth } from "../contexts/AuthProvider";
 
 const PrivateRoute = ({ path, ...rest }) => {

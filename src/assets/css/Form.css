@@ -9,6 +9,7 @@
 
 .form--control {
   padding: 1rem;
+  margin: 0.5rem;
   width: 100%;
   border-radius: 1rem;
   border: 1px solid var(--rb-dark-grey);
@@ -23,13 +24,6 @@
   position: relative;
 }
 
-.form--pass .bi {
-  position: absolute;
-  bottom: -0.1rem;
-  right: 1rem;
-  cursor: pointer;
-}
-
 .form--control label div {
   padding: 0.5rem 0;
   font-weight: 600;
@@ -38,16 +32,30 @@
 .form--control input {
   width: 100%;
   padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.password-icon {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0;
+  font-size: 1.2rem;
+  cursor: pointer;
 }
 
 .form--control button {
   width: 100%;
   font-weight: 600;
-  margin: 2rem 0;
+  margin: 0.5rem auto;
+}
+
+.form--control .signin-btn {
+  margin-top: 2rem;
 }
 
 .form--control .form--footer {
   text-align: center;
+  font-weight: bold;
 }
 
 .form--footer .link {
@@ -71,5 +79,9 @@
 @media screen and (min-width: 768px) {
   .form--control {
     width: 30%;
+  }
+
+  .password-icon {
+    bottom: 0.5rem;
   }
 }
