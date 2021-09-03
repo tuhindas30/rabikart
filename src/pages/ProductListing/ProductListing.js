@@ -40,9 +40,9 @@ const ProductListing = () => {
   if (isProductsLoading) {
     return (
       <DefaultWithSearch>
-        <h1 className="overlay">
+        <div className="overlay">
           <Loader />
-        </h1>
+        </div>
       </DefaultWithSearch>
     );
   }

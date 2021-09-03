@@ -3,6 +3,7 @@ import { useOrder } from "../../contexts/OrderProvider";
 import NavTabs from "../../components/NavTabs/NavTabs";
 import OrderItem from "../../components/OrderItem/OrderItem";
 import { ReactComponent as EmptyProductImage } from "../../assets/images/EmptyProductImage.svg";
+import { ReactComponent as Loader } from "../../assets/images/Loader.svg";
 import styles from "./Order.module.css";
 
 const Order = () => {
@@ -11,7 +12,9 @@ const Order = () => {
   if (isOrderLoading) {
     return (
       <DefaultWithoutSearch>
-        <h1 className="overlay">Loading ...</h1>
+        <div className="overlay">
+          <Loader />
+        </div>
       </DefaultWithoutSearch>
     );
   }

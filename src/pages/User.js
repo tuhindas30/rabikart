@@ -149,7 +149,11 @@ const User = () => {
             }`}
             type="submit"
             disabled={updateInfoBtn.isDisabled}>
-            {updateInfoBtn.isLoading ? "Loading ..." : "Update"}
+            {updateInfoBtn.isLoading ? (
+              <Loader width="2rem" height="2rem" />
+            ) : (
+              "Update"
+            )}
           </button>
         </form>
         <form className="form--control" onSubmit={handleChangePassword}>
