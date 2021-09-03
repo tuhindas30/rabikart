@@ -1,25 +1,26 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../../contexts/CartProvider";
-import CartCard from "../../components/CartCard/CartCard";
 import DefaultWithoutSearch from "../../layouts/DefaultWithoutSearch";
-import styles from "./Cart.module.css";
-import { ReactComponent as EmptyCartSvg } from "./EmptyCartImage.svg";
-import { useAuth } from "../../contexts/AuthProvider";
+import CartCard from "../../components/CartCard/CartCard";
 import PriceDetail from "../../components/PriceDetail/PriceDetail";
+import { ReactComponent as EmptyCartSvg } from "./EmptyCartImage.svg";
+import { ReactComponent as Loader } from "../../assets/images/Loader.svg";
+import styles from "./Cart.module.css";
 
 const Cart = () => {
-  const { token } = useAuth();
   const { cartState, isCartLoading } = useCart();
 
   if (isCartLoading) {
     return (
       <DefaultWithoutSearch>
-        <h1 className="overlay">Loading ...</h1>
+        <div className="overlay">
+          <Loader />
+        </div>
       </DefaultWithoutSearch>
     );
   }
 
-  if (cartState.items.length <= 0) {
+  if (cartState.items.length === 0) {
     return (
       <DefaultWithoutSearch>
         <div className={styles.emptyCartContainer}>
@@ -52,7 +53,7 @@ const Cart = () => {
             <CartCard key={product._id} product={product} quantity={quantity} />
           ))}
           <Link
-            to={token ? "/checkout" : "/signin"}
+            to="/checkout"
             className={`btn links btn-link ${styles.orderBtn}`}>
             Place Order
           </Link>
@@ -66,8 +67,8 @@ const Cart = () => {
             ₹{cartState.totalPrice}
           </p>
           <Link
-            to={token ? "/checkout" : "/signin"}
-            className={`btn links btn-link ${styles.orderBtn}`}>
+            to="/checkout"
+            className={`btn links btn-link ${styles.footerOrderBtn}`}>
             Place Order
           </Link>
         </footer>

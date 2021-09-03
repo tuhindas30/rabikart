@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { useWishlist } from "../../contexts/WishlistProvider";
-import WishCard from "../../components/WishCard/WishCard";
 import DefaultWithoutSearch from "../../layouts/DefaultWithoutSearch";
-import styles from "./Wishlist.module.css";
+import WishCard from "../../components/WishCard/WishCard";
 import { ReactComponent as EmptyWishSvg } from "./EmptyWishImage.svg";
+import { ReactComponent as Loader } from "../../assets/images/Loader.svg";
+import styles from "./Wishlist.module.css";
 
 const Wishlist = () => {
   const { isWishlistLoading, wishlistState } = useWishlist();
@@ -11,7 +12,9 @@ const Wishlist = () => {
   if (isWishlistLoading) {
     return (
       <DefaultWithoutSearch>
-        <h1 className="overlay">Loading ...</h1>
+        <div className="overlay">
+          <Loader />
+        </div>
       </DefaultWithoutSearch>
     );
   }

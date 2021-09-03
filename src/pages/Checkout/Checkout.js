@@ -1,19 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../contexts/CartProvider";
 import DefaultWithoutSearch from "../../layouts/DefaultWithoutSearch";
-import styles from "./Checkout.module.css";
-import { useAuth } from "../../contexts/AuthProvider";
-import CheckoutCard from "../../components/CheckoutCard/CheckoutCard";
 import { useEffect, useState } from "react";
+import { useAuth } from "../../contexts/AuthProvider";
 import { useOrder } from "../../contexts/OrderProvider";
+import CheckoutCard from "../../components/CheckoutCard/CheckoutCard";
 import PriceDetail from "../../components/PriceDetail/PriceDetail";
+import { ReactComponent as Loader } from "../../assets/images/Loader.svg";
+import styles from "./Checkout.module.css";
 
 const Checkout = () => {
   const secret = process.env.REACT_APP_RAZORPAY_API_KEY;
-  const { token, user } = useAuth();
-  const { cartState, isCartLoading } = useCart();
+  const { user } = useAuth();
+  const { cartState, isCartLoading, getCartFromServer } = useCart();
   const { initiateOrder, confirmOrder } = useOrder();
   const navigate = useNavigate();
+  const [isLoading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     street: "",
@@ -24,10 +26,10 @@ const Checkout = () => {
   });
 
   useEffect(() => {
-    if (cartState.items.length === 0 || !token) {
+    if (cartState.items.length === 0) {
       navigate("/cart");
     }
-  }, []);
+  }, [cartState.items.length]);
 
   const handleAddressInput = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -36,18 +38,24 @@ const Checkout = () => {
   if (isCartLoading) {
     return (
       <DefaultWithoutSearch>
-        <h1 className="overlay">Loading ...</h1>
+        <div className="overlay">
+          <Loader />
+        </div>
       </DefaultWithoutSearch>
     );
   }
 
-  const displayRazorpay = async () => {
+  const displayRazorpay = async (e) => {
+    e.preventDefault();
+
+    setLoading(true);
     if (!window.Razorpay) {
       alert("Something went wrong. Please try again :)");
       return;
     }
 
     const data = await initiateOrder(formData);
+    await getCartFromServer();
 
     const options = {
       key: secret,
@@ -66,6 +74,7 @@ const Checkout = () => {
     };
     const paymentObj = new window.Razorpay(options);
     paymentObj.open();
+    setLoading(false);
   };
 
   return (
@@ -73,7 +82,17 @@ const Checkout = () => {
       <h3 className={styles.heading}>Checkout</h3>
       <div className={styles.container}>
         <div className={styles.orderDetails}>
-          <form className={styles.form}>
+          <div className={styles.orderItem}>
+            <h3 style={{ textAlign: "center" }}>Orders</h3>
+            {cartState.items.map(({ product, quantity }) => (
+              <CheckoutCard
+                key={product._id}
+                product={product}
+                quantity={quantity}
+              />
+            ))}
+          </div>
+          <form className={styles.form} onSubmit={displayRazorpay}>
             <h3 style={{ textAlign: "center" }}>Delivery Address</h3>
             <label htmlFor="name">Name</label>
             <input
@@ -131,33 +150,19 @@ const Checkout = () => {
               name="contactNo"
               required
             />
+            <button type="submit" className={`btn primary ${styles.payment}`}>
+              {isLoading ? <Loader width="2rem" height="2rem" /> : "Continue"}
+            </button>
           </form>
-          <div className={styles.orderItem}>
-            <h3 style={{ textAlign: "center" }}>Orders</h3>
-            {cartState.items.map(({ product, quantity }) => (
-              <CheckoutCard
-                key={product._id}
-                product={product}
-                quantity={quantity}
-              />
-            ))}
-          </div>
-          <button
-            onClick={displayRazorpay}
-            className={`btn primary ${styles.payment}`}>
-            Continue
-          </button>
         </div>
       </div>
       <PriceDetail />
       {cartState.items.length > 0 && (
         <footer className={styles.checkoutFooter}>
+          <h2>Total</h2>
           <p style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
             ₹ {cartState.totalPrice}
           </p>
-          <button onClick={displayRazorpay} className="btn primary">
-            Continue
-          </button>
         </footer>
       )}
     </DefaultWithoutSearch>

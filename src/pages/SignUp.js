@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthProvider";
-import "../assets/css/Form.css";
 import DefaultWithoutSearch from "../layouts/DefaultWithoutSearch";
+import { ReactComponent as Loader } from "../assets/images/Loader.svg";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import "../assets/css/Form.css";
 
 const SignUp = () => {
   const [isPassHidden, setShowPass] = useState(true);
@@ -20,7 +22,7 @@ const SignUp = () => {
 
   useEffect(() => {
     token && navigate("/");
-  }, [token, navigate]);
+  }, [token]);
 
   const handleSumbit = async (e) => {
     e.preventDefault();
@@ -40,17 +42,10 @@ const SignUp = () => {
     }
   };
 
-  const handleUsernameInput = (e) => {
+  const handleInput = (e) => {
     setUserCredentials((credentials) => ({
       ...credentials,
-      username: e.target.value,
-    }));
-  };
-
-  const handleEmailInput = (e) => {
-    setUserCredentials((credentials) => ({
-      ...credentials,
-      email: e.target.value,
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -74,7 +69,7 @@ const SignUp = () => {
           <label htmlFor="email">
             <div>Username</div>
             <input
-              onChange={handleUsernameInput}
+              onChange={handleInput}
               value={userCredentials.username}
               type="text"
               name="username"
@@ -85,7 +80,7 @@ const SignUp = () => {
           <label htmlFor="email">
             <div>Email Address</div>
             <input
-              onChange={handleEmailInput}
+              onChange={handleInput}
               type="email"
               name="email"
               value={userCredentials.email}
@@ -102,20 +97,26 @@ const SignUp = () => {
               required
             />
             {isPassHidden ? (
-              <i
+              <AiFillEye
                 onClick={() => setShowPass(false)}
-                className="bi bi-eye-fill"></i>
+                className="password-icon"
+              />
             ) : (
-              <i
+              <AiFillEyeInvisible
                 onClick={() => setShowPass(true)}
-                className="bi bi-eye-slash-fill"></i>
+                className="password-icon"
+              />
             )}
           </label>
           <button
             className={`btn primary ${submitBtn.isDisabled && "disabled-btn"}`}
             type="submit"
             disabled={submitBtn.isDisabled}>
-            {submitBtn.isLoading ? "Loading ..." : "Sign Up"}
+            {submitBtn.isLoading ? (
+              <Loader style={{ width: "1.5rem", height: "1.5rem" }} />
+            ) : (
+              "Sign Up"
+            )}
           </button>
           <div className="form--footer">
             Already a user? <Link to="/signin">Sign In</Link>

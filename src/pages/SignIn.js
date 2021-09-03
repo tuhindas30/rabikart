@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../contexts/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import "../assets/css/Form.css";
+import { useAuth } from "../contexts/AuthProvider";
 import DefaultWithoutSearch from "../layouts/DefaultWithoutSearch";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { ReactComponent as Loader } from "../assets/images/Loader.svg";
+import "../assets/css/Form.css";
 
 const SignIn = () => {
   const [isPassHidden, setShowPass] = useState(true);
@@ -14,13 +16,17 @@ const SignIn = () => {
     isDisabled: true,
     isLoading: false,
   });
+  const [guestBtn, setGuestBtn] = useState({
+    isDisabled: false,
+    isLoading: false,
+  });
   const { token, signin } = useAuth();
   const { state } = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     token && navigate("/");
-  }, [token, navigate]);
+  }, [token]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,6 +49,29 @@ const SignIn = () => {
       setUserCredentials({ email: "", password: "" });
       navigate(state?.from ? state.from : "/");
     }
+  };
+
+  const handleGuestLogin = async () => {
+    const credentials = {
+      email: process.env.REACT_APP_TEST_EMAIL,
+      password: process.env.REACT_APP_TEST_PASSWORD,
+    };
+    setGuestBtn((state) => ({
+      ...state,
+      isDisabled: true,
+      isLoading: true,
+    }));
+    try {
+      await signin(credentials);
+    } catch (err) {
+      alert(err.message);
+    }
+    setGuestBtn((state) => ({
+      ...state,
+      isDisabled: false,
+      isLoading: false,
+    }));
+    navigate(state?.from ? state.from : "/");
   };
 
   const handleEmailInput = (e) => {
@@ -90,20 +119,41 @@ const SignIn = () => {
               required
             />
             {isPassHidden ? (
-              <i
+              <AiFillEye
                 onClick={() => setShowPass(false)}
-                className="bi bi-eye-fill"></i>
+                className="password-icon"
+              />
             ) : (
-              <i
+              <AiFillEyeInvisible
                 onClick={() => setShowPass(true)}
-                className="bi bi-eye-slash-fill"></i>
+                className="password-icon"
+              />
             )}
           </label>
           <button
-            className={`btn primary ${submitBtn.isDisabled && "disabled-btn"}`}
+            className={`btn primary signin-btn ${
+              submitBtn.isDisabled ? "disabled-btn" : ""
+            }`}
             type="submit"
             disabled={submitBtn.isDisabled}>
-            {submitBtn.isLoading ? "Loading ..." : "Sign In"}
+            {submitBtn.isLoading ? (
+              <Loader style={{ width: "1.5rem", height: "1.5rem" }} />
+            ) : (
+              "Sign In"
+            )}
+          </button>
+          <button
+            className={`btn primary ${
+              guestBtn.isDisabled ? "disabled-btn" : ""
+            }`}
+            type="button"
+            onClick={handleGuestLogin}
+            disabled={guestBtn.isDisabled}>
+            {guestBtn.isLoading ? (
+              <Loader style={{ width: "1.5rem", height: "1.5rem" }} />
+            ) : (
+              "Sign In as Guest"
+            )}
           </button>
           <div className="form--footer">
             Don't have an account? <Link to="/signup">Sign up</Link>{" "}

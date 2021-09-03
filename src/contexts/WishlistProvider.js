@@ -47,7 +47,6 @@ const WishlistProvider = ({ children }) => {
   const addToWishlist = async (productId) => {
     if (token) {
       try {
-        setWishlistLoading(true);
         const response = await wishApi.addToWishlist(productId);
         if (response.status === "SUCCESS") {
           wishlistDispatch({
@@ -58,8 +57,6 @@ const WishlistProvider = ({ children }) => {
         }
       } catch (err) {
         showToast("Something went wrong. Please try again :)");
-      } finally {
-        setWishlistLoading(false);
       }
     } else {
       alert("Login to add product to wishlist");
@@ -68,7 +65,6 @@ const WishlistProvider = ({ children }) => {
 
   const removeFromWishlist = async (productId) => {
     try {
-      setWishlistLoading(true);
       const response = await wishApi.removeFromWishlist(productId);
       if (response.status === "SUCCESS") {
         wishlistDispatch({
@@ -79,8 +75,6 @@ const WishlistProvider = ({ children }) => {
       }
     } catch (err) {
       showToast("Something went wrong. Please try again :)");
-    } finally {
-      setWishlistLoading(false);
     }
   };
 

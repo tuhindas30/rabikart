@@ -1,33 +1,50 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../../contexts/CartProvider";
-import styles from "./CartCard.module.css";
 import { FaTrash } from "react-icons/fa";
-import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import showToast from "../../utils/showToast";
+import { ReactComponent as Loader } from "../../assets/images/Loader.svg";
+import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import styles from "./CartCard.module.css";
+
 const CartCard = ({ product, quantity }) => {
   const { increaseCartItemQuantity, decreaseCartItemQuantity, removeFromCart } =
     useCart();
+  const [isLoading, setLoading] = useState(false);
 
   const handlePlus = async (productId, quantity) => {
     if (quantity === product.maxQuantity) {
       showToast(
         `This product can have maximum ${product.maxQuantity} quantities`
       );
-    } else {
-      await increaseCartItemQuantity(productId, quantity);
+      return;
     }
+    setLoading(true);
+    await increaseCartItemQuantity(productId, quantity);
+    setLoading(false);
   };
 
   const handleMinus = async (productId, quantity) => {
+    setLoading(true);
     await decreaseCartItemQuantity(productId, quantity);
+    setLoading(false);
   };
 
-  const handleRemove = async (productId) => {
+  const remove = async (productId) => {
+    setLoading(true);
     await removeFromCart(productId);
+    setLoading(false);
   };
 
   return (
     <div className={`card ${styles.cartCard}`}>
+      {isLoading ? (
+        <div className="overlay">
+          <Loader width="5rem" height="5rem" />
+        </div>
+      ) : (
+        ""
+      )}
       <div className={`card-content ${styles.cartCardContentContainer}`}>
         <div className={styles.cartCardContent}>
           <Link to={`/products/${product._id}`} className="link">
@@ -79,7 +96,7 @@ const CartCard = ({ product, quantity }) => {
         </div>
       </div>
       <button
-        onClick={() => handleRemove(product._id)}
+        onClick={() => remove(product._id)}
         className={`btn secondary flex-icon ${styles.removeBtn}`}>
         <FaTrash />
         <span style={{ marginLeft: "0.5rem" }}>Remove</span>

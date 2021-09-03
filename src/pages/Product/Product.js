@@ -1,11 +1,11 @@
-import { Link } from "react-router-dom";
-import { useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useCart } from "../../contexts/CartProvider";
 import { useProducts } from "../../contexts/ProductsProvider";
 import { useWishlist } from "../../contexts/WishlistProvider";
-import styles from "./Product.module.css";
-import { BiCheckDouble } from "react-icons/bi";
 import DefaultWithoutSearch from "../../layouts/DefaultWithoutSearch";
+import { ReactComponent as Loader } from "../../assets/images/Loader.svg";
+import { BiCheckDouble } from "react-icons/bi";
+import styles from "./Product.module.css";
 import {
   FaRegHeart,
   FaHeart,
@@ -14,11 +14,14 @@ import {
   FaShoppingCart,
 } from "react-icons/fa";
 import { ReactComponent as EmptyProductSvg } from "../../assets/images/EmptyProductImage.svg";
+import { useState } from "react";
 
 const Product = () => {
   const { id } = useParams();
   const { products, isProductsLoading } = useProducts();
   const { isCartLoading, cartState, addToCart } = useCart();
+  const [loader, setLoader] = useState({ cart: false, wishlist: false });
+  const navigate = useNavigate();
   const {
     isWishlistLoading,
     wishlistState,
@@ -28,21 +31,30 @@ const Product = () => {
   const product = products.find((product) => product._id === id);
 
   const handleAddToCart = async (product, productId) => {
-    await addToCart(product, productId);
+    setLoader((state) => ({ ...state, cart: true }));
+    const isAdded = await addToCart(product, productId);
+    setLoader((state) => ({ ...state, cart: false }));
+    if (isAdded) {
+      navigate("/cart");
+    }
   };
 
   const handleAddOrRemoveWishListItems = async (productId) => {
+    setLoader((state) => ({ ...state, wishlist: true }));
     if (wishlistState.some((item) => item.product._id === productId)) {
       await removeFromWishlist(productId);
     } else {
       await addToWishlist(productId);
     }
+    setLoader((state) => ({ ...state, wishlist: false }));
   };
 
   if (isProductsLoading) {
     return (
       <DefaultWithoutSearch>
-        <h1 className="overlay">Loading ...</h1>
+        <div className="overlay">
+          <Loader />
+        </div>
       </DefaultWithoutSearch>
     );
   }
@@ -72,6 +84,13 @@ const Product = () => {
     <DefaultWithoutSearch>
       <div className={styles.productDetailsContainer}>
         <div className={styles.productImage}>
+          {loader.wishlist ? (
+            <div className="overlay">
+              <Loader width="5rem" height="5rem" />
+            </div>
+          ) : (
+            ""
+          )}
           <img className="image" src={product.imageUrl} alt="" />
           <button
             onClick={() => handleAddOrRemoveWishListItems(product._id)}
@@ -100,7 +119,11 @@ const Product = () => {
               }`}
               disabled={isCartLoading}>
               <div style={{ marginRight: "0.5rem" }}>
-                {isCartLoading ? "GOING TO CART ..." : "ADD TO CART"}
+                {loader.cart ? (
+                  <Loader width="2rem" height="2rem" />
+                ) : (
+                  "ADD TO CART"
+                )}
               </div>
               <FaCartPlus />
             </button>
