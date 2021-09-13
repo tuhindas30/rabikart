@@ -1,11 +1,13 @@
+import debounce from "../../utils/debounce";
 import styles from "./NavSearch.module.css";
 
-const NavSearch = ({ input, onInput }) => {
+const NavSearch = ({ onInput }) => {
+  const debouncedSearch = debounce((e) => onInput(e.target.value), 1000);
+
   return (
     <div className={styles.searchDesktop}>
       <input
-        value={input}
-        onChange={(e) => onInput(e.target.value)}
+        onChange={debouncedSearch}
         className="search-box"
         type="text"
         placeholder="Search for products"

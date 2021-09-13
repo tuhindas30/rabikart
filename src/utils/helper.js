@@ -21,8 +21,4 @@ const setupAuthExceptionHandler = (logoutUser, navigate) => {
   );
 };
 
-const setupCancelToken = (source) => {
-  return (axios.defaults.cancelToken = source.token);
-};
-
-export { setupAuthHeader, setupAuthExceptionHandler, setupCancelToken };
+export { setupAuthHeader, setupAuthExceptionHandler };

@@ -1,4 +1,3 @@
-import axios from "axios";
 import {
   createContext,
   useContext,
@@ -9,7 +8,6 @@ import {
 import productReducer from "../reducers/productReducer";
 import * as productApi from "../api/product";
 import * as categoryApi from "../api/category";
-import { setupCancelToken } from "../utils/helper";
 const ProductsContext = createContext();
 
 const ProductsProvider = ({ children }) => {
@@ -35,8 +33,6 @@ const ProductsProvider = ({ children }) => {
     },
     productlistDispatch,
   ] = useReducer(productReducer, initialState);
-  const source = axios.CancelToken.source();
-  setupCancelToken(source);
 
   useEffect(() => {
     (async () => {
@@ -50,7 +46,6 @@ const ProductsProvider = ({ children }) => {
         setProductsLoading(false);
       }
     })();
-    return () => source.cancel("products unmounted");
   }, []);
 
   useEffect(() => {
@@ -65,7 +60,6 @@ const ProductsProvider = ({ children }) => {
         setProductsLoading(false);
       }
     })();
-    return () => source.cancel("products unmounted");
   }, []);
 
   return (
