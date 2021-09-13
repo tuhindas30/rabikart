@@ -9,8 +9,6 @@ import { useAuth } from "./AuthProvider";
 import * as cartApi from "../api/cart";
 import cartReducer from "../reducers/cartReducer";
 import showToast from "../utils/showToast";
-import axios from "axios";
-import { setupCancelToken } from "../utils/helper";
 const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
@@ -21,8 +19,6 @@ const CartProvider = ({ children }) => {
   const [cartState, cartDispatch] = useReducer(cartReducer, localCart);
   const [isCartLoading, setCartLoading] = useState(false);
   const { token } = useAuth();
-  const source = axios.CancelToken.source();
-  setupCancelToken(source);
 
   useEffect(() => {
     if (token) {
@@ -35,7 +31,6 @@ const CartProvider = ({ children }) => {
         payload: { cart: localCart },
       });
     }
-    return () => source.cancel("cart unmounted");
   }, [token]);
 
   const syncCartFromServer = async (localCartItems) => {

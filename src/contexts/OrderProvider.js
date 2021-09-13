@@ -5,12 +5,10 @@ import {
   useReducer,
   useState,
 } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthProvider";
 import orderReducer from "../reducers/orderReducer";
 import * as orderApi from "../api/order";
-import { setupCancelToken } from "../utils/helper";
 
 const OrderContext = createContext();
 
@@ -19,8 +17,6 @@ const OrderProvider = ({ children }) => {
   const [orderState, orderDispatch] = useReducer(orderReducer, []);
   const [isOrderLoading, setOrderLoading] = useState(false);
   const { token } = useAuth();
-  const source = axios.CancelToken.source();
-  setupCancelToken(source);
 
   useEffect(() => {
     if (token) {
@@ -42,7 +38,6 @@ const OrderProvider = ({ children }) => {
     } else {
       orderDispatch({ type: "INITIALISE_ORDER", payload: { items: [] } });
     }
-    return () => source.cancel("order unmounted");
   }, [token]);
 
   const initiateOrder = async (orderData) => {

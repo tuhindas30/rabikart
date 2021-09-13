@@ -9,8 +9,6 @@ import { useAuth } from "./AuthProvider";
 import wishlistReducer from "../reducers/wishlistReducer";
 import * as wishApi from "../api/wishlist";
 import showToast from "../utils/showToast";
-import axios from "axios";
-import { setupCancelToken } from "../utils/helper";
 
 const WishContext = createContext();
 
@@ -18,8 +16,6 @@ const WishlistProvider = ({ children }) => {
   const [wishlistState, wishlistDispatch] = useReducer(wishlistReducer, []);
   const [isWishlistLoading, setWishlistLoading] = useState(false);
   const { token } = useAuth();
-  const source = axios.CancelToken.source();
-  setupCancelToken(source);
 
   useEffect(() => {
     if (token) {
@@ -41,7 +37,6 @@ const WishlistProvider = ({ children }) => {
     } else {
       wishlistDispatch({ type: "INITIALISE_WISHLIST", payload: { items: [] } });
     }
-    return () => source.cancel("wishlist unmounted");
   }, [token]);
 
   const addToWishlist = async (productId) => {
