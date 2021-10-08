@@ -1,0 +1,20 @@
+.searchDesktop {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .searchDesktop {
+    display: block;
+    flex-basis: 40%;
+  }
+
+  .searchDesktop input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    width: 100%;
+    outline: none;
+    border: 0.1rem solid var(--rb-light-grey);
+    background-color: var(--rb-light-grey);
+    border-radius: 0.3rem;
+  }
+}
